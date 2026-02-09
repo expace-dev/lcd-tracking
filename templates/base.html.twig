@@ -1,17 +1,83 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>LCD Tracking - {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="LCD Tracking formalise les validations clés de fin de séjour et de ménage pour protéger propriétaires et intervenants, avec une trace factuelle.">
+    <link rel="stylesheet" href="{{ asset('styles.css') }}">
+    {#
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+    #}    
+</head>
+
+<body>
+    {% if show_header is defined and show_header %}
+    <a class="skip-link" href="#main">Aller au contenu</a>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="hero-card">
+                <p class="eyebrow">LCD Tracking</p>
+
+                <h1>Sécurisez vos locations courte durée, sans débat.</h1>
+                <p class="lead">
+                    Formalisez les points essentiels de fin de séjour et de ménage
+                    avec des validations simples, horodatées, consultables.
+                </p>
+
+                <div class="cta-row" aria-label="Actions principales">
+                    <a href="#contact" class="btn btn-primary">Demander un accès</a>
+                    <a href="#fonctionnement" class="btn btn-secondary">Voir comment ça marche</a>
+                </div>
+
+                <p class="reassurance" aria-label="Points clés">
+                    <span class="badge">Clair</span>
+                    <span class="badge">Factuel</span>
+                    <span class="badge">&lt; 1 min</span>
+                </p>
+
+                <div class="proofs proofs--hero" aria-label="Micro preuves">
+                    <div class="proof card card--compact">
+                        <div class="proof-icon" aria-hidden="true">✓</div>
+                        <div class="proof-text">Checklist courte</div>
+                    </div>
+                    <div class="proof card card--compact">
+                        <div class="proof-icon" aria-hidden="true">⛨</div>
+                        <div class="proof-text">Trace horodatée</div>
+                    </div>
+                </div>
+
+                <!-- Notes système éventuelles -->
+                <!-- <p class="system-note system-note--success">Enregistré.</p> -->
+                <!-- <p class="system-note system-note--warning">Non confirmé : action nécessaire.</p> -->
+            </div>
+        </div>
+    </header>
+{% endif %}
+    
+    <main id="main" class="site-main">
+
         {% block body %}{% endblock %}
-    </body>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <nav class="footer-links" aria-label="Liens légaux">
+                <a href="{{ path('app_home') }}#contact">Contact</a>
+                <a href="{{ path('app_home') }}#">Mentions légales</a>
+                <a href="{{ path('app_home') }}#">Politique de confidentialité</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+
 </html>

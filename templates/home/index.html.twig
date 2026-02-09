@@ -1,0 +1,249 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<section id="probleme" class="section">
+    <div class="container">
+        <header class="section-header">
+            <h2>Le problème</h2>
+            <p class="subtle">Quand c’est flou, ça se transforme vite en litige.</p>
+        </header>
+
+        <div class="columns">
+            <section class="card">
+                <h3>Côté propriétaires</h3>
+                <ul class="list">
+                    <li>Je découvre trop tard qu’un point n’a pas été fait.</li>
+                    <li>Je n’ai pas de trace claire quand il y a un litige.</li>
+                    <li>Le même problème revient d’une réservation à l’autre.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h3>Côté intervenants</h3>
+                <ul class="list">
+                    <li>On me reproche des choses sans preuve.</li>
+                    <li>Les attentes changent selon les logements.</li>
+                    <li>Je perds du temps à justifier au lieu d’exécuter.</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</section>
+
+<section id="solution" class="section">
+    <div class="container">
+        <header class="section-header">
+            <h2>Un suivi minimal, mais décisif.</h2>
+            <p class="subtle">
+                LCD Tracking se concentre sur ce qui protège réellement au quotidien :
+            </p>
+        </header>
+
+        <div class="stack">
+            <section class="card">
+                <h3>Contrôle départ</h3>
+                <ul class="list">
+                    <li>Sortie à l’heure : <span class="badge">Oui / Non</span></li>
+                    <li>Vaisselle faite et rangée : <span class="badge">Oui / Non</span></li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h3>Checklist ménage standardisée</h3>
+                <p class="subtle">
+                    Une checklist volontairement concise. Chaque point est validé de manière factuelle
+                    pour éviter les zones grises et les discussions inutiles.
+                </p>
+
+                <ul class="list">
+                    <li>Lit fait</li>
+                    <li>Sol propre (aspiré / lavé)</li>
+                    <li>Salle de bain OK</li>
+                    <li>Cuisine OK (plan + vaisselle)</li>
+                    <li>Linge changé (serviettes + torchons)</li>
+                </ul>
+
+                <p class="subtle">
+                    Fin d’intervention :
+                    <span class="badge badge--info">clés posées</span>.
+                </p>
+            </section>
+        </div>
+    </div>
+</section>
+
+<section id="fonctionnement" class="section">
+    <div class="container">
+        <header class="section-header">
+            <h2>Comment ça marche</h2>
+        </header>
+
+        <ol class="steps">
+            <li class="step">
+                <div class="step-bullet" aria-hidden="true">1</div>
+                <div class="step-body">
+                    L’intervenant valide les points essentiels en fin d’intervention (moins d’1 minute).
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-bullet" aria-hidden="true">2</div>
+                <div class="step-body">
+                    Le propriétaire consulte l’état : conforme / à corriger.
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-bullet" aria-hidden="true">3</div>
+                <div class="step-body">
+                    En cas de souci, vous avez une trace factuelle des validations.
+                </div>
+            </li>
+        </ol>
+
+        <section class="card example-proof" aria-label="Exemple de preuve">
+            <h3>Exemple de preuve</h3>
+            <p class="subtle">Horodatée, consultable, logement par logement.</p>
+
+            <ul class="list">
+                <li>Départ à l’heure : <span class="badge badge--success">Oui</span></li>
+                <li>Vaisselle rangée : <span class="badge badge--success">Oui</span></li>
+                <li>Clés posées : <span class="badge badge--info">Confirmé</span></li>
+            </ul>
+
+            <p class="system-note system-note--success">
+                Validé le 08/02/2026 — Intervenant : M. — Logement : Studio Centre
+            </p>
+        </section>
+    </div>
+</section>
+
+<section id="benefices" class="section">
+    <div class="container">
+        <header class="section-header">
+            <h2>Bénéfices</h2>
+        </header>
+
+        <div class="columns">
+            <section class="card">
+                <h3>Pour les propriétaires</h3>
+                <ul class="list">
+                    <li>Vision claire de la conformité</li>
+                    <li>Moins de surprises / moins d’allers-retours</li>
+                    <li>Standardisation des exigences</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h3>Pour les intervenants</h3>
+                <ul class="list">
+                    <li>Attentes explicites</li>
+                    <li>Moins d’accusations injustes</li>
+                    <li>Travail cadré et valorisé</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</section>
+
+<section id="cta-final" class="section section--cta">
+    <div class="container">
+        <div class="cta-band card">
+            <h2>Mettons fin au flou sur la fin de séjour et le ménage.</h2>
+            <p class="subtle">
+                Demandez un accès à LCD Tracking et commencez avec un suivi simple, clair,
+                traçable.
+            </p>
+            <a href="#contact" class="btn btn-primary">Demander un accès</a>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="section">
+    <div class="container">
+        <header class="section-header">
+            <h2>FAQ</h2>
+        </header>
+
+        <div class="faq">
+            <details class="faq-item card">
+                <summary>À quoi ça sert si on a déjà une conciergerie ?</summary>
+                <p>LCD Tracking ne remplace pas : il formalise les validations clés et crée une trace simple en cas de
+                    désaccord.</p>
+            </details>
+
+            <details class="faq-item card">
+                <summary>Ça va ajouter du travail aux intervenants ?</summary>
+                <p>Non : le principe est une validation en moins d’une minute sur les points essentiels.</p>
+            </details>
+
+            <details class="faq-item card">
+                <summary>Est-ce que ça crée de la tension avec les équipes ?</summary>
+                <p>Au contraire : les attentes sont claires et constantes, donc moins de reproches flous.</p>
+            </details>
+
+            <details class="faq-item card">
+                <summary>Qu’est-ce qui est “sécurisé” exactement ?</summary>
+                <p>Les points critiques sont standardisés (départ / vaisselle / checklist), ce qui réduit les zones
+                    grises et les litiges.</p>
+            </details>
+
+            <details class="faq-item card">
+                <summary>Est-ce adapté à plusieurs logements ?</summary>
+                <p>Oui : le cadre reste le même, logement par logement, avec un suivi homogène.</p>
+            </details>
+
+            <details class="faq-item card">
+                <summary>Quand l’app mobile arrive ?</summary>
+                <p>Le site sert au lancement et à la mise en place du cadre. L’app viendra ensuite.</p>
+            </details>
+
+            <details class="faq-item card">
+                <summary>Pourquoi le bouton s’appelle “Clés posées” ?</summary>
+                <p>Parce qu’il matérialise la fin réelle de l’intervention. Quand les clés sont posées, la checklist est
+                    complète et la mission est clôturée.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <div class="container">
+        <header class="section-header">
+            <h2>Contact</h2>
+            <p class="subtle">Accès sur demande (phase de lancement). Réponse sous 24/48h.</p>
+        </header>
+
+        <div class="form-card card">
+            <form method="post">
+                <div class="form-row">
+                    <label for="nom">Nom</label>
+                    <input id="nom" name="nom" type="text" autocomplete="name" required placeholder="Votre nom">
+                </div>
+
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required inputmode="email"
+                        placeholder="vous@exemple.fr">
+                </div>
+
+                <div class="form-row">
+                    <label for="role">Rôle</label>
+                    <select id="role" name="role" required>
+                        <option value="">—</option>
+                        <option value="proprietaire">Propriétaire</option>
+                        <option value="intervenant">Intervenant</option>
+                    </select>
+                </div>
+
+                <!-- États alternatifs prévus -->
+                <!-- <p class="form-error" role="status">Erreur d’envoi.</p> -->
+                <!-- <p class="form-success" role="status">Message envoyé.</p> -->
+
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <p class="form-hint">On ne vous demandera pas plus que l’essentiel.</p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
