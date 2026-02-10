@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container">
+
+        <header class="section-header">
+            <h2>Vue d’ensemble</h2>
+        </header>
+
+        <div class="columns">
+            <div class="card">
+                <strong>{{ propertiesCount }}</strong><br>
+                <span class="subtle">Logements</span>
+            </div>
+
+            <div class="card">
+                <strong>{{ interventionsCount }}</strong><br>
+                <span class="subtle">Interventions (14 jours)</span>
+            </div>
+
+            <div class="card">
+                <strong>{{ nonConformCount }}</strong><br>
+                <span class="subtle">Non conformes</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <header class="section-header">
+            <h2>Logements</h2>
+        </header>
+
+        <div class="stack">
+            {% for property in properties %}
+            {% set last = lastInterventions[property.id] ?? null %}
+
+            <div class="card">
+                <strong>{{ property.name }}</strong><br>
+
+                {% if last %}
+                <span class="subtle">
+                    Dernière intervention : {{ last.businessDate|date('d/m/Y') }}
+                </span>
+
+                {% if last.isConform %}
+                <span class="badge badge--success">Conforme</span>
+                {% else %}
+                <span class="badge badge--warning">Non conforme</span>
+                {% endif %}
+                {% else %}
+                <span class="subtle">Aucune intervention</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}
