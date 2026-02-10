@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Intervention déjà créée{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>{{ property.name }}</h2>
+      <p class="subtle">Une fiche a déjà été créée aujourd’hui.</p>
+    </header>
+
+    <div class="card">
+      <p class="system-note system-note--warning">
+        Intervention du {{ intervention.businessDate|date('d/m/Y') }} déjà existante.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{ path('worker_intervention_show', { token: worker.accessToken, id: intervention.id }) }}">
+          Ouvrir la fiche
+        </a>
+        <a class="btn btn-secondary" href="{{ path('worker_access', { token: worker.accessToken }) }}">
+          Retour aux logements
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

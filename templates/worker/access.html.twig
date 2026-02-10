@@ -1,38 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Intervenant{% endblock %}
+{% block title %}Intervenant
+{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
+	<section class="section">
+		<div class="container">
 
-    <header class="section-header">
-      <h2>Bonjour {{ worker.fullName }}</h2>
-      <p class="subtle">Choisissez un logement pour créer la fiche du jour.</p>
-    </header>
+			<header class="section-header">
+				<h2>Bonjour
+					{{ worker.fullName }}</h2>
+				<p class="subtle">Choisissez un logement pour créer la fiche du jour.</p>
+			</header>
 
-    <div class="stack">
-      {% for property in properties %}
-        <div class="card">
-          <strong>{{ property.name }}</strong>
-          <p class="subtle" style="margin-top: 6px;">
-            Logement assigné
-          </p>
+			<div class="stack">
+				{% for property in properties %}
+					<div class="card">
+						<strong>{{ property.name }}</strong>
+						<p class="subtle" style="margin-top: 6px;">
+							Logement assigné
+						</p>
 
-          {# plus tard : bouton "Créer intervention" #}
-          <div class="cta-row" style="margin-top: 12px;">
-            <button class="btn btn-primary" type="button" disabled aria-disabled="true">
-              Créer la fiche (bientôt)
-            </button>
-          </div>
-        </div>
-      {% else %}
-        <div class="card">
-          <p class="subtle">Aucun logement assigné pour le moment.</p>
-        </div>
-      {% endfor %}
-    </div>
+						{# plus tard : bouton "Créer intervention" #}
+						<div class="cta-row" style="margin-top: 12px;">
+							<a class="btn btn-primary" href="{{ path('worker_intervention_new', { token: worker.accessToken, id: property.id }) }}">
+								Créer la fiche du jour
+							</a>
+							Créer la fiche (bientôt)
+						</button>
+					</div>
+				</div>
+			{% else %}
+				<div class="card">
+					<p class="subtle">Aucun logement assigné pour le moment.</p>
+				</div>
+			{% endfor %}
+		</div>
 
-  </div>
-</section>
-{% endblock %}
+	</div>
+</section>{% endblock %}

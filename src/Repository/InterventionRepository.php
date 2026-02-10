@@ -87,6 +87,17 @@ class InterventionRepository extends ServiceEntityRepository
         return $map;
     }
 
+    public function findOneByPropertyAndBusinessDate(Property $property, \DateTimeImmutable $businessDate): ?Intervention
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.property = :property')
+            ->andWhere('i.businessDate = :date')
+            ->setParameter('property', $property)
+            ->setParameter('date', $businessDate)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Intervention[] Returns an array of Intervention objects
     //     */

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche intervention{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>{{ property.name }}</h2>
+      <p class="subtle">Fiche du {{ intervention.businessDate|date('d/m/Y') }}</p>
+    </header>
+
+    <div class="card">
+      <p class="system-note system-note--success">
+        Brouillon créé. Étape suivante : formulaire (checks + commentaires + validation).
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-secondary" href="{{ path('worker_access', { token: worker.accessToken }) }}">
+          Retour aux logements
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -52,6 +52,17 @@ class PropertyRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findOneByIdAndAssignedWorker(int $id, Worker $worker): ?Property
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id')
+            ->andWhere('p.assignedWorker = :worker')
+            ->setParameter('id', $id)
+            ->setParameter('worker', $worker)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     //    /**
     //     * @return Property[] Returns an array of Property objects
