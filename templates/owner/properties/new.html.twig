@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau logement{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Ajouter un logement</h2>
+    </header>
+
+    <div class="form-card card">
+      {% include 'owner/properties/_form.html.twig' with { form: form, button_label: 'Créer' } %}
+    </div>
+  </div>
+</section>
+{% endblock %}

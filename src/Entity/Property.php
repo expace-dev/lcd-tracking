@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
@@ -26,12 +28,19 @@ class Property
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?Worker $assignedWorker = null;
 
+    /**
+     * @var Collection<int, Intervention>
+     */
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Intervention::class, orphanRemoval: true)]
+    private Collection $interventions;
+
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->interventions = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -78,6 +87,14 @@ class Property
         $this->assignedWorker = $assignedWorker;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Intervention>
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
     }
 
     public function getCreatedAt(): \DateTimeImmutable

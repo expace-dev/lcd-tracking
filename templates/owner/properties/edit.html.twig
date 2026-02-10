@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier logement{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Modifier : {{ property.name }}</h2>
+    </header>
+
+    <div class="form-card card">
+      {% include 'owner/properties/_form.html.twig' with { form: form, button_label: 'Mettre à jour' } %}
+    </div>
+  </div>
+</section>
+{% endblock %}

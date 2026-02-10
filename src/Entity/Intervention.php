@@ -19,8 +19,8 @@ class Intervention
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'interventions')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Property $property;
 
     #[ORM\ManyToOne]
@@ -244,9 +244,7 @@ class Intervention
 
     public function removePhoto(InterventionPhoto $photo): static
     {
-        if ($this->photos->removeElement($photo)) {
-            // orphanRemoval=true => suppression automatique
-        }
+        $this->photos->removeElement($photo);
 
         return $this;
     }

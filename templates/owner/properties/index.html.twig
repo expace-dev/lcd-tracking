@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Logements{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+
+    <header class="section-header">
+      <h2>Logements</h2>
+      <p class="subtle">Gérez vos logements et l’intervenant assigné.</p>
+    </header>
+
+    {% for message in app.flashes('success') %}
+      <p class="form-success" role="status">{{ message }}</p>
+    {% endfor %}
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="{{ path('owner_properties_new') }}">Ajouter un logement</a>
+      <a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Retour dashboard</a>
+    </div>
+
+    <div class="stack" style="margin-top: 16px;">
+      {% for property in properties %}
+        <div class="card">
+          <strong>{{ property.name }}</strong><br>
+
+          <span class="subtle">
+            Intervenant :
+            {% if property.assignedWorker %}
+              {{ property.assignedWorker.fullName }} — {{ property.assignedWorker.phone }}
+            {% else %}
+              —
+            {% endif %}
+          </span>
+
+          <div class="cta-row" style="margin-top: 12px;">
+            <a class="btn btn-secondary" href="{{ path('owner_properties_edit', {id: property.id}) }}">Modifier</a>
+
+            <form method="post" action="{{ path('owner_properties_delete', {id: property.id}) }}" onsubmit="return confirm('Supprimer ce logement ? Toutes les interventions seront supprimées.');">
+              <input type="hidden" name="_token" value="{{ csrf_token('delete_property_' ~ property.id) }}">
+              <button class="btn btn-secondary" type="submit">Supprimer</button>
+            </form>
+          </div>
+        </div>
+      {% else %}
+        <div class="card">
+          <p class="subtle">Aucun logement pour le moment.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

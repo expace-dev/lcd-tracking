@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+
+  <div class="form-row">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, { attr: { placeholder: 'Ex: Studio Centre' } }) }}
+    {{ form_errors(form.name) }}
+  </div>
+
+  <div class="form-row">
+    {{ form_label(form.assignedWorker) }}
+    {{ form_widget(form.assignedWorker) }}
+    {{ form_errors(form.assignedWorker) }}
+    <p class="form-hint">Optionnel, mais recommandé pour le flux intervenant.</p>
+  </div>
+
+  <button class="btn btn-primary" type="submit">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(form) }}

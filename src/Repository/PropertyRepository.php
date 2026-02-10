@@ -18,37 +18,48 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
     public function findByOwner(User $owner): array
-{
-    return $this->createQueryBuilder('p')
-        ->andWhere('p.owner = :owner')
-        ->setParameter('owner', $owner)
-        ->orderBy('p.createdAt', 'DESC')
-        ->getQuery()
-        ->getResult();
-}
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.owner = :owner')
+            ->setParameter('owner', $owner)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
-//    /**
-//     * @return Property[] Returns an array of Property objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findOneByIdAndOwner(int $id, User $owner): ?Property
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id')
+            ->andWhere('p.owner = :owner')
+            ->setParameter('id', $id)
+            ->setParameter('owner', $owner)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-//    public function findOneBySomeField($value): ?Property
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Property[] Returns an array of Property objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Property
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
