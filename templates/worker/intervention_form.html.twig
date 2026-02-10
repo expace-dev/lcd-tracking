@@ -1,92 +1,138 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fiche intervention{% endblock %}
+{% block title %}Fiche intervention
+{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
+	<section class="section">
+		<div class="container">
 
-    <header class="section-header">
-      <h2>{{ property.name }}</h2>
-      <p class="subtle">Fiche du {{ intervention.businessDate|date('d/m/Y') }}</p>
-    </header>
+			<header class="section-header">
+				<h2>{{ property.name }}</h2>
+				<p class="subtle">Fiche du
+					{{ intervention.businessDate|date('d/m/Y') }}</p>
+			</header>
 
-    {% for message in app.flashes('success') %}
-      <p class="form-success" role="status">{{ message }}</p>
-    {% endfor %}
+			{% for message in app.flashes('success') %}
+				<p class="form-success" role="status">{{ message }}</p>
+			{% endfor %}
+			{% for message in app.flashes('error') %}
+				<p class="form-error" role="status">{{ message }}</p>
+			{% endfor %}
 
-    <div class="form-card card">
-      {{ form_start(form, { attr: {
+			<div class="form-card card">
+				{{ form_start(form, { attr: {
         onsubmit: "return confirm('Ta fiche est-elle valide ? Es-tu sûr de vouloir confirmer ?');"
       } }) }}
+      {{ form_errors(form) }}
 
-        <h3>Sortie voyageurs</h3>
+				<h3>Sortie voyageurs</h3>
 
-        <div class="form-row">
-          {{ form_label(form.exitOnTime) }}
-          {{ form_widget(form.exitOnTime) }}
-          {{ form_errors(form.exitOnTime) }}
-        </div>
+				<div class="form-row">
+					{{ form_label(form.exitOnTime) }}
+					{{ form_widget(form.exitOnTime) }}
+					{{ form_errors(form.exitOnTime) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_label(form.instructionsRespected) }}
-          {{ form_widget(form.instructionsRespected) }}
-          {{ form_errors(form.instructionsRespected) }}
-        </div>
+				<div class="form-row">
+					{{ form_label(form.instructionsRespected) }}
+					{{ form_widget(form.instructionsRespected) }}
+					{{ form_errors(form.instructionsRespected) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_label(form.exitComment) }}
-          {{ form_widget(form.exitComment) }}
-          {{ form_errors(form.exitComment) }}
-        </div>
+				<div class="form-row">
+					{{ form_label(form.exitComment) }}
+					{{ form_widget(form.exitComment) }}
+					{{ form_errors(form.exitComment) }}
+				</div>
 
-        <hr style="border:0;border-top:1px solid var(--border); margin: 16px 0;">
+				<hr style="border:0;border-top:1px solid var(--border); margin: 16px 0;">
 
-        <h3>Ménage</h3>
+				<h3>Ménage</h3>
 
-        <div class="form-row">
-          {{ form_widget(form.checkBedMade) }}
-          {{ form_label(form.checkBedMade) }}
-        </div>
+				<div class="form-row">
+					{{ form_widget(form.checkBedMade) }}
+					{{ form_label(form.checkBedMade) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_widget(form.checkFloorClean) }}
-          {{ form_label(form.checkFloorClean) }}
-        </div>
+				<div class="form-row">
+					{{ form_widget(form.checkFloorClean) }}
+					{{ form_label(form.checkFloorClean) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_widget(form.checkBathroomOk) }}
-          {{ form_label(form.checkBathroomOk) }}
-        </div>
+				<div class="form-row">
+					{{ form_widget(form.checkBathroomOk) }}
+					{{ form_label(form.checkBathroomOk) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_widget(form.checkKitchenOk) }}
-          {{ form_label(form.checkKitchenOk) }}
-        </div>
+				<div class="form-row">
+					{{ form_widget(form.checkKitchenOk) }}
+					{{ form_label(form.checkKitchenOk) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_widget(form.checkLinenChanged) }}
-          {{ form_label(form.checkLinenChanged) }}
-        </div>
+				<div class="form-row">
+					{{ form_widget(form.checkLinenChanged) }}
+					{{ form_label(form.checkLinenChanged) }}
+				</div>
 
-        <div class="form-row">
-          {{ form_label(form.cleaningComment) }}
-          {{ form_widget(form.cleaningComment) }}
-          {{ form_errors(form.cleaningComment) }}
-        </div>
+				<div class="form-row">
+					{{ form_label(form.cleaningComment) }}
+					{{ form_widget(form.cleaningComment) }}
+					{{ form_errors(form.cleaningComment) }}
+				</div>
 
-        <p class="form-hint">
-          Statut : {% if intervention.isConform %}<span class="badge badge--success">Conforme</span>{% else %}<span class="badge badge--warning">Non conforme</span>{% endif %}
-        </p>
+				<hr style="border:0;border-top:1px solid var(--border); margin: 16px 0;">
 
-        <div class="cta-row" style="margin-top: 12px;">
-          <button class="btn btn-primary" type="submit">Confirmer</button>
-          <a class="btn btn-secondary" href="{{ path('worker_access', { token: worker.accessToken }) }}">Retour</a>
-        </div>
+				<h3>Photos</h3>
 
-      {{ form_end(form) }}
-    </div>
+<div class="form-row">
+  {{ form_label(form.newPhotos) }}
+  {{ form_widget(form.newPhotos) }}
+  {{ form_errors(form.newPhotos) }}
+  <p class="form-hint">Vous pouvez ajouter jusqu’à 10 photos.</p>
+</div>
 
+
+
+				<p class="form-hint">
+					Statut :
+					{% if intervention.isConform %}
+						<span class="badge badge--success">Conforme</span>
+					{% else %}
+						<span class="badge badge--warning">Non conforme</span>
+					{% endif %}
+				</p>
+
+				<div class="cta-row" style="margin-top: 12px;">
+					<button class="btn btn-primary" type="submit">Confirmer</button>
+					<a class="btn btn-secondary" href="{{ path('worker_access', { token: worker.accessToken }) }}">Retour</a>
+				</div>
+
+				{{ form_end(form) }}
+
+        {# ✅ ICI seulement : affichage des photos + suppression #}
+{% if intervention.photos|length > 0 %}
+  <hr style="border:0;border-top:1px solid var(--border); margin: 16px 0;">
+  <h3>Photos ajoutées</h3>
+
+  <div class="proofs" style="grid-template-columns: repeat(2, 1fr);">
+    {% for photo in intervention.photos %}
+      <div class="card card--compact">
+        <img src="{{ asset(photo.path) }}" alt="Photo intervention" style="border-radius: 10px;">
+
+        <form method="post"
+              action="{{ path('worker_photo_delete', { token: token, id: photo.id }) }}"
+              onsubmit="return confirm('Supprimer cette photo ?');"
+              style="margin-top: 10px;">
+          <input type="hidden" name="_token" value="{{ csrf_token('delete_photo_' ~ photo.id) }}">
+          <button class="btn btn-secondary" type="submit">Supprimer</button>
+        </form>
+      </div>
+    {% endfor %}
   </div>
-</section>
+{% endif %}
+			</div>
+
+		</div>
+	</section>
 {% endblock %}

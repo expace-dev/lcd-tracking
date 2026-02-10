@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\File;
 
 final class InterventionType extends AbstractType
 {
@@ -69,6 +72,26 @@ final class InterventionType extends AbstractType
                 'attr' => [
                     'rows' => 3,
                     'placeholder' => 'Ex: tâche persistante, manque un torchon...',
+                ],
+            ])
+            ->add('newPhotos', FileType::class, [
+                'label' => 'Photos (max 10)',
+                'mapped' => false,
+                'required' => false,
+                'multiple' => true,
+                'attr' => [
+                    'accept' => 'image/*',
+                    'capture' => 'environment',
+                ],
+                'constraints' => [
+                    new All([
+                        new File(
+                            maxSize: '8M',
+                            maxSizeMessage: 'Fichier trop volumineux (max 8 Mo).',
+                            mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'],
+                            mimeTypesMessage: 'Format image invalide (jpg/png/webp/heic).',
+                        ),
+                    ]),
                 ],
             ])
         ;
