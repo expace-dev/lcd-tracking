@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Worker;
 use App\Entity\Property;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -37,6 +38,20 @@ class PropertyRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @return Property[]
+     */
+    public function findAssignedToWorker(Worker $worker): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.assignedWorker = :worker')
+            ->setParameter('worker', $worker)
+            ->orderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Property[] Returns an array of Property objects
