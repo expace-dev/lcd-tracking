@@ -1,117 +1,108 @@
-[0.4.0] — Onboarding & gestion propriétaire
-Ajout
+# Changelog
 
-Inscription propriétaire
+Toutes les évolutions notables du projet LCD Tracking sont documentées ici.
 
-Vérification email
+---
 
-Authenticator personnalisé
+# [0.4.0] — Onboarding & Gestion Propriétaire
 
-Onboarding en 3 étapes
+## ➕ Ajouts
 
-CRUD logements
+- Inscription propriétaire
+- Vérification email
+- Authenticator personnalisé
+- Onboarding en 3 étapes
+- CRUD logements
+- CRUD intervenants
+- Recherche intervenant par téléphone
+- Liaison intervenant existant
+- Assignation intervenant → logement
+- Cascade suppression logement → interventions → photos
+- Dashboard KPI sur 14 jours glissants
 
-CRUD intervenants
+## 🔧 Améliorations
 
-Recherche intervenant par téléphone
+- Sécurité renforcée Owner / Worker
+- 404 strict si accès non autorisé
+- Normalisation du `PropertyType`
+- Uniformisation namespace `Owner`
 
-Liaison intervenant existant
+---
 
-Assignation intervenant → logement
+# [0.3.0] — Boucle Intervenant Complète
 
-Cascade suppression logement → interventions → photos
+## ➕ Ajouts
 
-Dashboard KPI 14 jours
+- Accès par token sécurisé
+- Création automatique d’intervention
+- Formulaire intervention complet
+- Conformité calculée automatiquement
+- Upload photos (max 10)
+- Suppression photo
+- Protection CSRF
 
-Amélioration
+---
 
-Sécurité renforcée owner / worker
+# [0.2.0] — Structure Domaine
 
-404 strict si accès non autorisé
+## ➕ Ajouts
 
-Normalisation du form PropertyType
+- Entities : Property / Worker / Intervention
+- Relations Doctrine
+- Fixtures Faker
+- Repository methods personnalisées
+- Repository KPI
 
-Uniformisation namespace Owner
+---
 
-[0.3.0] — Boucle intervenant complète
-Ajout
+# [0.1.0] — Initialisation
 
-Accès par token
+## ➕ Ajouts
 
-Création intervention auto
+- Setup Symfony
+- Authentification classique
+- Structure de base
+- CSS initial mobile-first
 
-Formulaire intervention
+---
 
-Conformité calculée
+# 🧭 Roadmap Mise à Jour
 
-Upload photos (max 10)
+## 🎨 Phase UX (prochaine discussion)
 
-Suppression photo
+- Intégration logo
+- Refactor visuel global
+- Harmonisation badges / steps
+- Amélioration feedback mobile
+- UX upload photo (plus fluide)
 
-Protection CSRF
+---
 
-[0.2.0] — Structure domaine
+## 🧱 Phase Stabilisation
 
-Entities Property / Worker / Intervention
+- Statut confirmé / verrouillage intervention
+- Auto-save brouillon
+- Séparation logique photos / infos
+- Nettoyage contrôleurs (refactor léger)
 
-Relations Doctrine
+---
 
-Fixtures Faker
+## 📩 Phase Communication
 
-Repository custom methods
+- Activation checkbox urgence
+- Envoi email automatique
+- WhatsApp si configuré
+- Historique des échanges
 
-KPI repository
+---
 
-[0.1.0] — Initialisation
+# 💬 Conclusion
 
-Setup Symfony
+Vous êtes actuellement à un stade :
 
-Auth classique
-
-Structure base
-
-CSS initial
-
-🧭 Roadmap mise à jour
-Phase UX (prochaine discussion)
-
-Intégration logo
-
-Refactor visuel global
-
-Harmonisation badges / steps
-
-Amélioration feedback mobile
-
-UX upload photo (plus fluide)
-
-Phase Stabilisation
-
-Statut confirmé / verrouillage intervention
-
-Auto-save brouillon
-
-Séparation logique photos / infos
-
-Nettoyage contrôleurs (refactor léger)
-
-Phase Communication
-
-Checkbox urgence active
-
-Envoi email automatique
-
-WhatsApp si configuré
-
-Historique échanges
-
-💬 Conclusion
-
-Là vous êtes :
-
-👉 Architecture propre
-👉 Domaine clair
-👉 Flux complet
-👉 Pas de dette critique
-👉 Pas de design finalisé
-👉 Prêt pour phase UX
+- 👉 Architecture propre
+- 👉 Domaine métier clair
+- 👉 Flux complet propriétaire / intervenant
+- 👉 Aucune dette critique
+- 👉 Design non finalisé
+- 👉 Prêt pour phase UX
