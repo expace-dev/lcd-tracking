@@ -1,216 +1,197 @@
-LCD Tracking
+# LCD Tracking
 
 Application web destinée à formaliser et tracer les validations clés de fin de séjour et de ménage pour les locations courte durée.
 
-Objectif principal :
-👉 fournir une trace factuelle, horodatée et simple entre propriétaires et intervenants,
+## 🎯 Objectif
+
+👉 Fournir une **trace factuelle, horodatée et simple** entre propriétaires et intervenants,  
 sans friction ni complexité inutile.
 
-🎯 MVP fonctionnel actuel
-👤 Rôles
-Propriétaire (Owner)
+---
 
-Inscription classique (email / mot de passe)
+# 🚀 MVP Fonctionnel Actuel
 
-Vérification email (non bloquante)
+## 👤 Rôles
 
-Authentification sécurisée
+### Propriétaire (Owner)
 
-Dashboard avec KPI
+- Inscription classique (email / mot de passe)
+- Vérification email (non bloquante)
+- Authentification sécurisée
+- Dashboard avec KPI
+- Gestion des logements
+- Gestion des intervenants
+- Parcours onboarding guidé
 
-Gestion des logements
+### Intervenant (Worker)
 
-Gestion des intervenants
+- Accès via lien sécurisé par token :
+  /w/{token}
+- Aucun compte requis
+- Interface mobile-first
+- Création automatique de l’intervention du jour
+- Modification autorisée tant que non confirmée
 
-Parcours onboarding guidé
+---
 
-Intervenant (Worker)
-
-Accès via lien sécurisé par token (/w/{token})
-
-Aucun compte
-
-Interface mobile-first
-
-Création automatique d’intervention du jour
-
-Modification autorisée tant que non confirmée
-
-🧭 Onboarding propriétaire
+# 🧭 Onboarding Propriétaire
 
 Après inscription :
 
-Ajouter un logement
+1. Ajouter un logement  
+2. Ajouter ou lier un intervenant  
+3. Assigner l’intervenant à un logement  
 
-Ajouter ou lier un intervenant
+### Statuts dynamiques :
 
-Assigner l’intervenant à un logement
+- ✅ Fait  
+- ⚠️ À faire  
+- 🔒 Bloqué  
+- 🟢 Onboarding terminé  
 
-Statuts dynamiques :
+---
 
-À faire
+# 🏠 Logements (Property)
 
-Bloqué
-
-Fait
-
-Onboarding terminé
-
-🏠 Logements (Property)
-
-Un logement appartient à un propriétaire
-
-Assignation possible à un intervenant
-
-Suppression en cascade :
-
-interventions
-
-photos liées
+- Un logement appartient à un propriétaire
+- Assignation possible à un intervenant
+- Suppression en cascade :
+  - Interventions
+  - Photos liées
 
 CRUD complet côté propriétaire.
 
-👷 Intervenants (Worker)
+---
 
-Création manuelle
+# 👷 Intervenants (Worker)
 
-Recherche par téléphone
-
-Liaison à un propriétaire existant
-
-Un intervenant peut travailler pour plusieurs propriétaires
-
-Suppression volontairement désactivée (évite incohérences multi-propriétaires)
+- Création manuelle
+- Recherche par téléphone
+- Liaison à un propriétaire existant
+- Un intervenant peut travailler pour plusieurs propriétaires
+- Suppression volontairement désactivée (évite incohérences multi-propriétaires)
 
 Accès via :
-
-/w/{accessToken}
-
+  /w/{accessToken}
 
 Token invalide ⇒ 404
 
-📝 Interventions
-Règles métier
+---
 
-1 intervention max par logement / jour
+# 📝 Interventions
 
-Date métier Europe/Paris
+## 📌 Règles métier
 
-Création automatique au premier accès
+- 1 intervention maximum par logement / jour
+- Date métier basée sur Europe/Paris
+- Création automatique au premier accès
+- Modifiable tant que non confirmée
 
-Modifiable tant que non confirmée
+---
 
-Données saisies
-Sortie voyageurs
+## 📋 Données saisies
 
-À l’heure (oui / non / vide)
+### Sortie voyageurs
 
-Consignes respectées (oui / non / vide)
+- À l’heure (oui / non / vide)
+- Consignes respectées (oui / non / vide)
+- Commentaire libre
 
-Commentaire libre
-
-Ménage
+### Ménage
 
 Checklist :
 
-Lit fait
+- Lit fait
+- Sol propre
+- Salle de bain OK
+- Cuisine OK
+- Linge changé
 
-Sol propre
+Commentaire ménage libre.
 
-Salle de bain OK
+---
 
-Cuisine OK
+## ✅ Conformité
 
-Linge changé
+Une intervention est conforme uniquement si tous les checks ménage sont validés.
 
-Commentaire ménage
+La partie sortie voyageurs n’impacte pas la conformité.
 
-Conformité
+---
 
-Conforme si :
+# 📷 Photos
 
-Tous les checks ménage validés
+- Maximum 10 photos par intervention
+- Upload mobile-first
+- Stockage local
+- Suppression possible
+- Suppression automatique si intervention ou logement supprimé
 
-La sortie voyageurs n’impacte pas la conformité.
+---
 
-📷 Photos
-
-Max 10 par intervention
-
-Upload mobile
-
-Stockage local
-
-Suppression possible
-
-Suppression automatique si intervention/logement supprimé
-
-📊 Dashboard propriétaire
+# 📊 Dashboard Propriétaire
 
 KPI sur 14 jours glissants :
 
-Nombre de logements
+- Nombre de logements
+- Nombre d’interventions
+- Nombre d’interventions non conformes
+- Dernière intervention par logement
 
-Nombre d’interventions
+Accès protégé : ROLE_OWNER
 
-Nombre de non-conformités
+---
 
-Dernière intervention par logement
+# 🔐 Sécurité
 
-Accès protégé (ROLE_OWNER)
+- CSRF sur tous les formulaires
+- Token sécurisé pour accès intervenant
+- Vérification stricte Owner / Worker
+- 404 systématique en cas d’accès non autorisé
+- Cascade Doctrine cohérente
 
-🔐 Sécurité
+---
 
-CSRF sur tous les formulaires
+# 🧪 Fixtures
 
-Token sécurisé pour accès intervenant
+- Faker
+- Données réalistes
+- Historique sur 14 jours
 
-Vérification stricte owner / worker
+---
 
-404 systématique si tentative d’accès non autorisé
+# 🧱 Stack Technique
 
-Cascade DB cohérente
+- Symfony 8
+- Doctrine ORM
+- Twig
+- CSS custom (mobile-first)
+- SQLite / MySQL
 
-🧪 Fixtures
+---
 
-Faker
+# 📝 Philosophie du Projet
 
-Données réalistes
+- Simplicité terrain
+- Mobile-first
+- Zéro friction intervenant
+- Refactor uniquement quand nécessaire
+- MVP orienté usage réel
 
-14 jours d’historique
+---
 
-🧱 Stack
+# ✅ État Actuel
 
-Symfony 8
+- ✅ Boucle intervenant complète
+- ✅ Boucle propriétaire fonctionnelle
+- ✅ Onboarding opérationnel
+- ✅ Registration + vérification email
+- ✅ Gestion logements + intervenants
+- ✅ Assignation fonctionnelle
+- ✅ Sécurité stable
 
-Doctrine ORM
+---
 
-Twig
+## 🎯 Prochaine étape
 
-CSS custom mobile-first
-
-SQLite / MySQL
-
-📝 Philosophie
-
-Simplicité terrain
-
-Mobile-first
-
-Zéro friction intervenant
-
-Refactor uniquement quand nécessaire
-
-MVP orienté usage réel
-
-🚀 État actuel
-
-✅ Boucle intervenant complète
-✅ Boucle propriétaire fonctionnelle
-✅ Onboarding opérationnel
-✅ Registration + vérification email
-✅ Gestion logements + intervenants
-✅ Assignation fonctionnelle
-✅ Sécurité stable
-
-Projet prêt pour phase UX.
+➡ Phase UX (design final, intégration logo, amélioration expérience mobile)
