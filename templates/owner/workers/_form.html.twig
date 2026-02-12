@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+
+  <div class="form-row">
+    {{ form_label(form.firstName) }}
+    {{ form_widget(form.firstName, { attr: { placeholder: 'Prénom' } }) }}
+    {{ form_errors(form.firstName) }}
+  </div>
+
+  <div class="form-row">
+    {{ form_label(form.lastName) }}
+    {{ form_widget(form.lastName, { attr: { placeholder: 'Nom' } }) }}
+    {{ form_errors(form.lastName) }}
+  </div>
+
+  <div class="form-row">
+    {{ form_label(form.phone) }}
+    {{ form_widget(form.phone, { attr: { placeholder: '06XXXXXXXX' } }) }}
+    {{ form_errors(form.phone) }}
+    <p class="form-hint">Format requis : 06/07 + 8 chiffres.</p>
+  </div>
+
+  <div class="form-row">
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email, { attr: { placeholder: 'optionnel' } }) }}
+    {{ form_errors(form.email) }}
+  </div>
+
+  <button class="btn btn-primary" type="submit">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(form) }}

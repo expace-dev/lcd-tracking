@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Owner;
 
 use App\Entity\Property;
-use App\Form\PropertyType;
+use App\Entity\User;
+use App\Form\Owner\PropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,7 +21,8 @@ final class PropertyController extends AbstractController
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(PropertyRepository $propertyRepository): Response
     {
-        $owner = $this->getUser();
+        $owner = $this->getOwner();
+
         $properties = $propertyRepository->findByOwner($owner);
 
         return $this->render('owner/properties/index.html.twig', [
@@ -28,7 +33,7 @@ final class PropertyController extends AbstractController
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
-        $owner = $this->getUser();
+        $owner = $this->getOwner();
 
         $property = new Property();
         $property->setOwner($owner);
@@ -43,7 +48,10 @@ final class PropertyController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Logement créé.');
-            return $this->redirectToRoute('owner_properties_index');
+
+            return $this->redirectToRoute('owner_properties_edit', [
+                'id' => $property->getId(),
+            ]);
         }
 
         return $this->render('owner/properties/new.html.twig', [
@@ -56,13 +64,13 @@ final class PropertyController extends AbstractController
         int $id,
         Request $request,
         PropertyRepository $propertyRepository,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
     ): Response {
-        $owner = $this->getUser();
-        $property = $propertyRepository->findOneByIdAndOwner($id, $owner);
+        $owner = $this->getOwner();
 
+        $property = $propertyRepository->findOneByIdAndOwner($id, $owner);
         if (!$property) {
-            throw $this->createNotFoundException();
+            throw $this->createNotFoundException('Logement introuvable.');
         }
 
         $form = $this->createForm(PropertyType::class, $property, [
@@ -74,7 +82,10 @@ final class PropertyController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Logement mis à jour.');
-            return $this->redirectToRoute('owner_properties_index');
+
+            return $this->redirectToRoute('owner_properties_edit', [
+                'id' => $property->getId(),
+            ]);
         }
 
         return $this->render('owner/properties/edit.html.twig', [
@@ -88,24 +99,35 @@ final class PropertyController extends AbstractController
         int $id,
         Request $request,
         PropertyRepository $propertyRepository,
-        EntityManagerInterface $em
-    ): Response {
-        $owner = $this->getUser();
-        $property = $propertyRepository->findOneByIdAndOwner($id, $owner);
+        EntityManagerInterface $em,
+    ): RedirectResponse {
+        $owner = $this->getOwner();
 
+        $property = $propertyRepository->findOneByIdAndOwner($id, $owner);
         if (!$property) {
-            throw $this->createNotFoundException();
+            throw $this->createNotFoundException('Logement introuvable.');
         }
 
         if (!$this->isCsrfTokenValid('delete_property_' . $property->getId(), (string) $request->request->get('_token'))) {
             throw $this->createAccessDeniedException();
         }
 
-        // Avec ON DELETE CASCADE côté Intervention, tout part avec
         $em->remove($property);
         $em->flush();
 
         $this->addFlash('success', 'Logement supprimé.');
+
         return $this->redirectToRoute('owner_properties_index');
+    }
+
+    private function getOwner(): User
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException();
+        }
+
+        return $user;
     }
 }

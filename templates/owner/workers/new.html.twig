@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer intervenant{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Créer un intervenant</h2>
+      <p class="subtle">Il sera automatiquement lié à votre compte.</p>
+    </header>
+
+    <div class="form-card card">
+      {% include 'owner/workers/_form.html.twig' with { form: form, button_label: 'Créer' } %}
+    </div>
+
+    <div class="cta-row" style="margin-top: 12px;">
+      <a class="btn btn-secondary" href="{{ path('owner_workers_index') }}">Retour</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

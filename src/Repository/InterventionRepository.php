@@ -98,6 +98,21 @@ class InterventionRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findOneForOwner(int $id, \App\Entity\User $owner): ?\App\Entity\Intervention
+    {
+        return $this->createQueryBuilder('i')
+            ->addSelect('p', 'w', 'ph')
+            ->join('i.property', 'p')
+            ->join('i.createdBy', 'w')
+            ->leftJoin('i.photos', 'ph')
+            ->andWhere('i.id = :id')
+            ->andWhere('p.owner = :owner')
+            ->setParameter('id', $id)
+            ->setParameter('owner', $owner)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Intervention[] Returns an array of Intervention objects
     //     */

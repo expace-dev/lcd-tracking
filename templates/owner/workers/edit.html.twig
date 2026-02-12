@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier intervenant{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Modifier : {{ worker.fullName }}</h2>
+    </header>
+
+    <div class="form-card card">
+      {% include 'owner/workers/_form.html.twig' with { form: form, button_label: 'Mettre à jour' } %}
+    </div>
+
+    <div class="cta-row" style="margin-top: 12px;">
+      <a class="btn btn-secondary" href="{{ path('owner_workers_index') }}">Retour</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

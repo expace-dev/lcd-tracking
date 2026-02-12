@@ -51,12 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Property::class, orphanRemoval: true)]
     private Collection $properties;
 
+    #[ORM\Column(options: ['default' => false])]
+    private bool $isVerified = false;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->roles = ['ROLE_OWNER'];
         $this->workers = new ArrayCollection();
         $this->properties = new ArrayCollection();
+        $this->isVerified = false;
     }
 
     public function getId(): ?int
@@ -203,6 +207,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->properties->removeElement($property);
 
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
         return $this;
     }
 }

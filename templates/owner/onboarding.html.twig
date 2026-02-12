@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+{% block title %}Onboarding{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <h2>Configuration du compte</h2>
+      <p class="subtle">On va mettre l’app en place en 3 étapes.</p>
+
+      {% for message in app.flashes('success') %}
+        <p class="form-success" role="status">{{ message }}</p>
+      {% endfor %}
+      {% for message in app.flashes('error') %}
+        <p class="form-error" role="status">{{ message }}</p>
+      {% endfor %}
+
+      {% if app.user and not app.user.verified %}
+        <p class="system-note system-note--warning">
+          Email non confirmé. Vous pouvez démarrer, mais pensez à confirmer votre email.
+        </p>
+      {% endif %}
+
+      <ol class="steps" style="margin-top: 14px;">
+
+        {# 1) Logement #}
+        <li class="step">
+          <div class="step-bullet" aria-hidden="true">1</div>
+          <div class="step-body">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <strong>Ajouter votre premier logement</strong>
+
+              {% if hasProperty %}
+                <span class="badge badge--success">Fait</span>
+              {% else %}
+                <span class="badge badge--warning">À faire</span>
+              {% endif %}
+            </div>
+
+            <p class="subtle" style="margin-top: 8px;">
+              Créez au moins un logement pour pouvoir suivre les interventions.
+            </p>
+
+            <div class="cta-row" style="margin-top: 10px;">
+              {% if hasProperty %}
+                <a class="btn btn-secondary" href="{{ path('owner_properties_index') }}">Voir mes logements</a>
+                <a class="btn btn-secondary" href="{{ path('owner_properties_new') }}">Ajouter un logement</a>
+              {% else %}
+                <a class="btn btn-primary" href="{{ path('owner_properties_new') }}">Créer mon premier logement</a>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+
+        {# 2) Intervenant (lié au proprio) #}
+        <li class="step">
+          <div class="step-bullet" aria-hidden="true">2</div>
+          <div class="step-body">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <strong>Ajouter / lier un intervenant</strong>
+
+              {% if not hasProperty %}
+                <span class="badge badge--muted">Bloqué</span>
+              {% elseif hasWorker %}
+                <span class="badge badge--success">Fait</span>
+              {% else %}
+                <span class="badge badge--warning">À faire</span>
+              {% endif %}
+            </div>
+
+            <p class="subtle" style="margin-top: 8px;">
+              L’intervenant pourra accéder à son interface via un lien sécurisé.
+            </p>
+
+            <div class="cta-row" style="margin-top: 10px;">
+              {% if not hasProperty %}
+                <span class="btn btn-secondary" aria-disabled="true">Ajoutez d’abord un logement</span>
+              {% else %}
+                {# à brancher quand on aura l'écran "intervenants" #}
+                <a class="btn {{ hasWorker ? 'btn-secondary' : 'btn-primary' }}"
+                   href="{{ path('owner_workers_index') }}">
+                  {{ hasWorker ? 'Voir mes intervenants' : 'Ajouter un intervenant' }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+
+        {# 3) Assignation au logement #}
+        <li class="step">
+          <div class="step-bullet" aria-hidden="true">3</div>
+          <div class="step-body">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <strong>Assigner l’intervenant au logement</strong>
+
+              {% if not hasProperty or not hasWorker %}
+                <span class="badge badge--muted">Bloqué</span>
+              {% elseif hasAssignment %}
+                <span class="badge badge--success">Fait</span>
+              {% else %}
+                <span class="badge badge--warning">À faire</span>
+              {% endif %}
+            </div>
+
+            <p class="subtle" style="margin-top: 8px;">
+              Une fois assigné, vous pourrez partager le lien intervenant (/w/…).
+            </p>
+
+            <div class="cta-row" style="margin-top: 10px;">
+              {% if not hasProperty or not hasWorker %}
+                <span class="btn btn-secondary" aria-disabled="true">Terminez l’étape 1 et 2</span>
+              {% else %}
+                <a class="btn {{ hasAssignment ? 'btn-secondary' : 'btn-primary' }}"
+                   href="{{ path('owner_properties_index') }}">
+                  {{ hasAssignment ? 'Gérer l’assignation' : 'Assigner maintenant' }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+
+      </ol>
+
+      <hr style="border:0;border-top:1px solid var(--border); margin: 16px 0;">
+
+      <div class="cta-row" style="margin-top: 12px;">
+        <a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Aller au dashboard</a>
+
+        {% if hasProperty and hasWorker and hasAssignment %}
+          <span class="badge badge--success">Onboarding terminé</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

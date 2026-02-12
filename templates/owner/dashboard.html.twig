@@ -48,6 +48,10 @@
                 <span class="subtle">
                     Dernière intervention : {{ last.businessDate|date('d/m/Y') }}
                 </span>
+                <a class="btn btn-secondary"
+   href="{{ path('owner_intervention_show', {id: lastInterventions[property.id].id}) }}">
+  Voir le détail
+</a>
 
                 {% if last.isConform %}
                 <span class="badge badge--success">Conforme</span>
@@ -58,7 +62,10 @@
                 <span class="subtle">Aucune intervention</span>
                 {% endif %}
             </div>
+            
             {% endfor %}
+            
+</a>
         </div>
 
     </div>

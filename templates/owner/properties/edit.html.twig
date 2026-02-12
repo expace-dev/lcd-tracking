@@ -4,13 +4,66 @@
 {% block body %}
 <section class="section">
   <div class="container">
+
     <header class="section-header">
-      <h2>Modifier : {{ property.name }}</h2>
+      <h2>Gérer : {{ property.name }}</h2>
+      <p class="subtle">Modifiez le logement et gérez l’intervenant assigné.</p>
     </header>
 
-    <div class="form-card card">
-      {% include 'owner/properties/_form.html.twig' with { form: form, button_label: 'Mettre à jour' } %}
+    {# Flash messages #}
+    {% for message in app.flashes('success') %}
+      <p class="form-success" role="status">{{ message }}</p>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+      <p class="form-error" role="status">{{ message }}</p>
+    {% endfor %}
+
+    <div class="cta-row" style="margin-bottom: 12px;">
+      <a class="btn btn-secondary" href="{{ path('owner_properties_index') }}">Retour liste</a>
+
+      <form method="post"
+            action="{{ path('owner_properties_delete', {id: property.id}) }}"
+            onsubmit="return confirm('Supprimer ce logement ? Toutes les interventions seront supprimées.');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete_property_' ~ property.id) }}">
+        <button class="btn btn-secondary" type="submit">Supprimer</button>
+      </form>
     </div>
+
+    <div class="stack">
+
+      <div class="form-card card">
+        {# ⚠️ tu as un include owner/properties/_form.html.twig : je le garde tel quel #}
+        {% include 'owner/properties/_form.html.twig' with { form: form, button_label: 'Mettre à jour' } %}
+      </div>
+
+      <div class="card">
+        <h3>Intervenant</h3>
+
+        {% if property.assignedWorker %}
+          <p class="subtle" style="margin: 0;">
+            Assigné : <strong>{{ property.assignedWorker.fullName }}</strong>
+            — {{ property.assignedWorker.phone }}
+          </p>
+
+          <div style="margin-top: 10px;">
+            <p class="subtle" style="margin: 0 0 6px;">Lien intervenant :</p>
+            <a class="badge badge--info"
+               href="{{ path('worker_access', { token: property.assignedWorker.accessToken }) }}"
+               target="_blank"
+               rel="noopener">
+              /w/{{ property.assignedWorker.accessToken }}
+            </a>
+          </div>
+        {% else %}
+          <p class="subtle" style="margin: 0;">
+            <span class="badge badge--warning">Non assigné</span>
+            — on ajoute l’assignation juste après.
+          </p>
+        {% endif %}
+      </div>
+
+    </div>
+
   </div>
 </section>
 {% endblock %}

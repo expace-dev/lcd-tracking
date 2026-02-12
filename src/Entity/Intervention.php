@@ -68,12 +68,6 @@ class Intervention
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\Column(options: ['default' => false])]
-    private bool $confirmed = false;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private ?\DateTimeImmutable $confirmedAt = null;
-
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -269,14 +263,4 @@ class Intervention
             && $this->checkLinenChanged;
     }
 
-    public function isConfirmed(): bool
-    {
-        return $this->confirmed;
-    }
-
-    public function confirm(): void
-    {
-        $this->confirmed = true;
-        $this->confirmedAt = new \DateTimeImmutable();
-    }
 }

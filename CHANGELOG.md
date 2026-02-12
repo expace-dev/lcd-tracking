@@ -1,21 +1,117 @@
-## 📝 Changelog
+[0.4.0] — Onboarding & gestion propriétaire
+Ajout
 
-### [Unreleased]
-- Refactor futur du workflow intervention
-- Optimisation UX upload photo
-- Clarification statut brouillon / confirmé
+Inscription propriétaire
 
-### [0.1.0] — MVP Fonctionnel
-- Mise en place des rôles Owner / Worker
-- Accès intervenant via lien token sécurisé
-- Création automatique d’une intervention (1/jour/logement)
-- Checklist ménage avec calcul de conformité
-- Ajout / suppression de photos (stockage local)
-- Dashboard propriétaire avec KPI sur 14 jours
-- Fixtures complètes avec Faker
-- Suppression en cascade des interventions lors de la suppression d’un logement
+Vérification email
 
-### [0.0.1] — Initialisation
-- Initialisation Symfony
-- Modélisation des entités principales
-- Mise en place de la sécurité propriétaire
+Authenticator personnalisé
+
+Onboarding en 3 étapes
+
+CRUD logements
+
+CRUD intervenants
+
+Recherche intervenant par téléphone
+
+Liaison intervenant existant
+
+Assignation intervenant → logement
+
+Cascade suppression logement → interventions → photos
+
+Dashboard KPI 14 jours
+
+Amélioration
+
+Sécurité renforcée owner / worker
+
+404 strict si accès non autorisé
+
+Normalisation du form PropertyType
+
+Uniformisation namespace Owner
+
+[0.3.0] — Boucle intervenant complète
+Ajout
+
+Accès par token
+
+Création intervention auto
+
+Formulaire intervention
+
+Conformité calculée
+
+Upload photos (max 10)
+
+Suppression photo
+
+Protection CSRF
+
+[0.2.0] — Structure domaine
+
+Entities Property / Worker / Intervention
+
+Relations Doctrine
+
+Fixtures Faker
+
+Repository custom methods
+
+KPI repository
+
+[0.1.0] — Initialisation
+
+Setup Symfony
+
+Auth classique
+
+Structure base
+
+CSS initial
+
+🧭 Roadmap mise à jour
+Phase UX (prochaine discussion)
+
+Intégration logo
+
+Refactor visuel global
+
+Harmonisation badges / steps
+
+Amélioration feedback mobile
+
+UX upload photo (plus fluide)
+
+Phase Stabilisation
+
+Statut confirmé / verrouillage intervention
+
+Auto-save brouillon
+
+Séparation logique photos / infos
+
+Nettoyage contrôleurs (refactor léger)
+
+Phase Communication
+
+Checkbox urgence active
+
+Envoi email automatique
+
+WhatsApp si configuré
+
+Historique échanges
+
+💬 Conclusion
+
+Là vous êtes :
+
+👉 Architecture propre
+👉 Domaine clair
+👉 Flux complet
+👉 Pas de dette critique
+👉 Pas de design finalisé
+👉 Prêt pour phase UX
