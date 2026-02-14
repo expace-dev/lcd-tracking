@@ -1,0 +1,48 @@
+/* ===== Auth pages ===== */
+.auth-main{
+  padding: 28px 16px 48px;
+}
+
+.auth-card{
+  width: 100%;
+  max-width: 520px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  margin: 0 auto;
+}
+
+.auth-card h1{
+  margin: 0 0 6px;
+}
+
+.auth-subtitle{
+  margin: 0 0 16px;
+}
+
+.auth-card .btn{
+  width: 100%;
+  margin-top: 6px;
+}
+
+.auth-card .form-error{
+  margin-bottom: 12px;
+}
+
+/* Un peu plus compact sur mobile */
+@media (max-width: 520px){
+  .auth-card{ padding: 16px; }
+}
+
+.auth-help{
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 700;
+}
+.auth-help a{
+  color: var(--blue-700);
+  text-decoration: none;
+}
+.auth-help a:hover{
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}

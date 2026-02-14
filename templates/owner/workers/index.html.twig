@@ -1,95 +1,111 @@
 {% extends 'base.html.twig' %}
-{% block title %}Intervenants{% endblock %}
+{% block title %}Intervenants
+{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
-    <header class="section-header">
-      <h2>Intervenants</h2>
-      <p class="subtle">Recherchez par téléphone pour lier un intervenant existant, ou créez-en un.</p>
-    </header>
+	<section class="section">
+		<div class="container">
+			<header class="section-header">
+				<h2>Intervenants</h2>
+				<p class="subtle">Recherchez par téléphone pour lier un intervenant existant, ou créez-en un.</p>
+			</header>
 
-    {% for message in app.flashes('success') %}
-      <p class="form-success" role="status">{{ message }}</p>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-      <p class="form-error" role="status">{{ message }}</p>
-    {% endfor %}
+			{% for message in app.flashes('success') %}
+				<p class="form-success" role="status">{{ message }}</p>
+			{% endfor %}
+			{% for message in app.flashes('error') %}
+				<p class="form-error" role="status">{{ message }}</p>
+			{% endfor %}
 
-    <div class="card form-card" style="max-width: 520px;">
-      {{ form_start(searchForm) }}
-        <div class="form-row">
-          {{ form_label(searchForm.phone) }}
-          {{ form_widget(searchForm.phone, { attr: { placeholder: '06XXXXXXXX' } }) }}
-          {{ form_errors(searchForm.phone) }}
-          <p class="form-hint">Format requis : 06/07 + 8 chiffres.</p>
-        </div>
+			<div class="card form-card" style="max-width: 520px;">
+				{{ form_start(searchForm, {attr: { 'data-turbo': 'false' } }) }}
+				<div class="form-row">
+					{{ form_label(searchForm.phone) }}
+					{{ form_widget(searchForm.phone, { attr: { placeholder: '06XXXXXXXX' } }) }}
+					{{ form_errors(searchForm.phone) }}
+					<p class="form-hint">Format requis : 06/07 + 8 chiffres.</p>
+				</div>
 
-        <div class="cta-row">
-          <button class="btn btn-primary" type="submit">Rechercher</button>
-          <a class="btn btn-secondary" href="{{ path('owner_workers_new') }}">Créer un intervenant</a>
-        </div>
-      {{ form_end(searchForm) }}
-    </div>
+				<div class="cta-row">
+					<button class="btn btn-primary" type="submit">Rechercher</button>
+					<a class="btn btn-secondary" href="{{ path('owner_workers_new') }}">Créer un intervenant</a>
+				</div>
+				{{ form_end(searchForm) }}
+			</div>
 
-    {% if foundWorker %}
-      {# Sécurité : si jamais un worker déjà lié repasse dans foundWorker, on n'affiche pas le bloc #}
-      {% set alreadyLinked = workers is defined and (workers|filter(w => w.id == foundWorker.id)|length > 0) %}
+			{% if foundWorker %}
+				{# Sécurité : si jamais un worker déjà lié repasse dans foundWorker, on n'affiche pas le bloc #}
+				{% set alreadyLinked = workers is defined and (workers|filter(w => w.id == foundWorker.id)|length > 0) %}
 
-      {% if not alreadyLinked %}
-        <div class="card" style="margin-top: 16px;">
-          <strong>Intervenant trouvé :</strong><br>
-          <span class="subtle">{{ foundWorker.fullName }} — {{ foundWorker.phone }}</span>
+				{% if not alreadyLinked %}
+					<div class="card" style="margin-top: 16px;">
+						<strong>Intervenant trouvé :</strong><br>
+						<span class="subtle">{{ foundWorker.fullName }}
+							—
+							{{ foundWorker.phone }}</span>
 
-          <div class="cta-row" style="margin-top: 12px;">
-            <form method="post" action="{{ path('owner_workers_link', {id: foundWorker.id}) }}">
-              <input type="hidden" name="_token" value="{{ csrf_token('link_worker_' ~ foundWorker.id) }}">
-              <button class="btn btn-primary" type="submit">Lier à mon compte</button>
-            </form>
-          </div>
+						<div class="cta-row" style="margin-top: 12px;">
+							<form method="post" action="{{ path('owner_workers_link', {id: foundWorker.id}) }}">
+								<input type="hidden" name="_token" value="{{ csrf_token('link_worker_' ~ foundWorker.id) }}">
+								<button class="btn btn-primary" type="submit">Lier à mon compte</button>
+							</form>
+						</div>
 
-          <p class="form-hint" style="margin-top: 10px;">
-            Une fois lié, vous pourrez l’assigner à un logement.
-          </p>
-        </div>
-      {% endif %}
-    {% endif %}
+						<p class="form-hint" style="margin-top: 10px;">
+							Une fois lié, vous pourrez l’assigner à un logement.
+						</p>
+					</div>
+				{% endif %}
+			{% endif %}
 
-    <div class="cta-row" style="margin-top: 16px;">
-      <a class="btn btn-secondary" href="{{ path('owner_onboarding') }}">Retour onboarding</a>
-      <a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Retour dashboard</a>
-    </div>
+			<div class="cta-row" style="margin-top: 16px;">
+				<a class="btn btn-secondary" href="{{ path('owner_onboarding') }}">Retour onboarding</a>
+				<a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Retour dashboard</a>
+			</div>
 
-    <div style="margin-top: 16px;">
-      <span class="badge">{{ workers|length }} intervenant(s) lié(s)</span>
-    </div>
+			<div style="margin-top: 16px;">
+				<span class="badge">{{ workers|length }}
+					intervenant(s) lié(s)</span>
+			</div>
 
-    <div class="stack" style="margin-top: 16px;">
-      {% for worker in workers %}
-        <div class="card">
-          <strong>{{ worker.fullName }}</strong><br>
-          <span class="subtle">{{ worker.phone }}{% if worker.email %} — {{ worker.email }}{% endif %}</span>
+			<div class="stack" style="margin-top: 16px;">
+				{% for worker in workers %}
+					<div class="card">
+						<strong>{{ worker.fullName }}</strong><br>
+						<span class="subtle">{{ worker.phone }}
+							{% if worker.email %}
+								—
+								{{ worker.email }}
+							{% endif %}
+						</span>
 
-          <div class="cta-row" style="margin-top: 12px;">
-            <a class="btn btn-secondary" href="{{ path('owner_workers_edit', {id: worker.id}) }}">Modifier</a>
+						<div class="cta-row" style="margin-top: 12px;">
+							<a class="btn btn-secondary" href="{{ path('owner_workers_edit', {id: worker.id}) }}">Modifier</a>
 
-            <a class="btn btn-secondary" href="{{ path('worker_access', { token: worker.accessToken }) }}" target="_blank" rel="noopener">
-              Ouvrir interface intervenant
-            </a>
-          </div>
+							<a class="btn btn-secondary" href="{{ path('worker_access', { token: worker.accessToken }) }}" target="_blank" rel="noopener">
+								Ouvrir interface intervenant
+							</a>
+						</div>
 
-          <div style="margin-top: 10px;">
-            <span class="subtle">Lien intervenant :</span><br>
-            <span class="badge badge--info">/w/{{ worker.accessToken }}</span>
-          </div>
-        </div>
-      {% else %}
-        <div class="card">
-          <p class="subtle">Aucun intervenant lié pour le moment.</p>
-        </div>
-      {% endfor %}
-    </div>
+						<div style="margin-top: 10px;">
+							<span class="subtle">Lien intervenant :</span><br>
+							<div class="worker-link" data-controller="clipboard" data-clipboard-text-value="{{ absolute_url(path('worker_access', { token: worker.accessToken })) }}">
 
-  </div>
-</section>
+									<button type="button" class="btn btn-secondary" data-action="clipboard#copy">
+										Copier le lien intervenant
+									</button>
+
+									<span class="worker-link__feedback" data-clipboard-target="feedback" aria-live="polite"></span>
+								</div>
+						</div>
+					</div>
+				{% else %}
+					<div class="card">
+						<p class="subtle">Aucun intervenant lié pour le moment.</p>
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+	</section>
 {% endblock %}

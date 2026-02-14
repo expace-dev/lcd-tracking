@@ -1,0 +1,52 @@
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.5rem,
+  6: 2rem,
+  7: 3rem
+);
+
+// ===== Margin & Padding utilities =====
+@each $key, $value in $spacers {
+
+  // Margin all
+  .m-#{$key} { margin: $value !important; }
+
+  // Margin vertical / horizontal
+  .my-#{$key} {
+    margin-top: $value !important;
+    margin-bottom: $value !important;
+  }
+  .mx-#{$key} {
+    margin-left: $value !important;
+    margin-right: $value !important;
+  }
+
+  // Margin directions
+  .mt-#{$key} { margin-top: $value !important; }
+  .mb-#{$key} { margin-bottom: $value !important; }
+  .ms-#{$key} { margin-left: $value !important; }
+  .me-#{$key} { margin-right: $value !important; }
+
+  // Padding all
+  .p-#{$key} { padding: $value !important; }
+
+  // Padding vertical / horizontal
+  .py-#{$key} {
+    padding-top: $value !important;
+    padding-bottom: $value !important;
+  }
+  .px-#{$key} {
+    padding-left: $value !important;
+    padding-right: $value !important;
+  }
+
+  // Padding directions
+  .pt-#{$key} { padding-top: $value !important; }
+  .pb-#{$key} { padding-bottom: $value !important; }
+  .ps-#{$key} { padding-left: $value !important; }
+  .pe-#{$key} { padding-right: $value !important; }
+}

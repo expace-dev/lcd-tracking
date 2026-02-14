@@ -1,136 +1,150 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail intervention{% endblock %}
+{% block title %}Détail intervention
+{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
+	<section class="section">
+		<div class="container">
 
-    <header class="section-header">
-      <h2>{{ property.name }}</h2>
-      <p class="subtle">
-        Intervention du {{ intervention.businessDate|date('d/m/Y') }}
-        — Intervenant : {{ worker.fullName }}{% if worker.phone %} ({{ worker.phone }}){% endif %}
-      </p>
+			<header class="section-header">
+				<h2>{{ property.name }}</h2>
+				<p class="subtle">
+					Intervention du
+					{{ intervention.businessDate|date('d/m/Y') }}
+					— Intervenant :
+					{{ worker.fullName }}
+					{% if worker.phone %}
+						({{ worker.phone }})
+					{% endif %}
+				</p>
 
-      <p class="form-hint">
-        Statut :
-        {% if intervention.conform %}
-          <span class="badge badge--success">Conforme</span>
-        {% else %}
-          <span class="badge badge--warning">Non conforme</span>
-        {% endif %}
-      </p>
-    </header>
+				<p class="form-hint">
+					Statut :
+					{% if intervention.conform %}
+						<span class="badge badge--success">Conforme</span>
+					{% else %}
+						<span class="badge badge--warning">Non conforme</span>
+					{% endif %}
+				</p>
+			</header>
 
-    <div class="stack">
+			<div class="stack">
 
-      <section class="card">
-        <h3>Sortie voyageurs</h3>
+				<section class="card">
+					<h3>Sortie voyageurs</h3>
 
-        <ul class="list">
-          <li>Voyageurs sortis à l’heure :
-            {% if intervention.exitOnTime is null %}
-              <span class="badge">—</span>
-            {% elseif intervention.exitOnTime %}
-              <span class="badge badge--success">Oui</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
+					<ul class="list">
+						<li>Voyageurs sortis à l’heure :
+							{% if intervention.exitOnTime is null %}
+								<span class="badge">—</span>
+							{% elseif intervention.exitOnTime %}
+								<span class="badge badge--success">Oui</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
 
-          <li>Consignes respectées :
-            {% if intervention.instructionsRespected is null %}
-              <span class="badge">—</span>
-            {% elseif intervention.instructionsRespected %}
-              <span class="badge badge--success">Oui</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
-        </ul>
+						<li>Consignes respectées :
+							{% if intervention.instructionsRespected is null %}
+								<span class="badge">—</span>
+							{% elseif intervention.instructionsRespected %}
+								<span class="badge badge--success">Oui</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
+					</ul>
 
-        {% if intervention.exitComment %}
-          <p class="subtle" style="margin-top: 12px;">
-            <strong>Commentaire :</strong><br>
-            {{ intervention.exitComment|nl2br }}
-          </p>
-        {% endif %}
-      </section>
+					{% if intervention.exitComment %}
+						<p class="subtle" style="margin-top: 12px;">
+							<strong>Commentaire :</strong><br>
+							{{ intervention.exitComment|nl2br }}
+						</p>
+					{% endif %}
+				</section>
 
-      <section class="card">
-        <h3>Ménage</h3>
+				<section class="card">
+					<h3>Ménage</h3>
 
-        <ul class="list">
-          <li>Lit fait :
-            {% if intervention.checkBedMade %}
-              <span class="badge badge--success">OK</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
-          <li>Sol propre :
-            {% if intervention.checkFloorClean %}
-              <span class="badge badge--success">OK</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
-          <li>Salle de bain OK :
-            {% if intervention.checkBathroomOk %}
-              <span class="badge badge--success">OK</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
-          <li>Cuisine OK :
-            {% if intervention.checkKitchenOk %}
-              <span class="badge badge--success">OK</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
-          <li>Linge changé :
-            {% if intervention.checkLinenChanged %}
-              <span class="badge badge--success">OK</span>
-            {% else %}
-              <span class="badge badge--warning">Non</span>
-            {% endif %}
-          </li>
-        </ul>
+					<ul class="list">
+						<li>Lit fait :
+							{% if intervention.checkBedMade %}
+								<span class="badge badge--success">OK</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
+						<li>Sol propre :
+							{% if intervention.checkFloorClean %}
+								<span class="badge badge--success">OK</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
+						<li>Salle de bain OK :
+							{% if intervention.checkBathroomOk %}
+								<span class="badge badge--success">OK</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
+						<li>Cuisine OK :
+							{% if intervention.checkKitchenOk %}
+								<span class="badge badge--success">OK</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
+						<li>Linge changé :
+							{% if intervention.checkLinenChanged %}
+								<span class="badge badge--success">OK</span>
+							{% else %}
+								<span class="badge badge--warning">Non</span>
+							{% endif %}
+						</li>
+					</ul>
 
-        {% if intervention.cleaningComment %}
-          <p class="subtle" style="margin-top: 12px;">
-            <strong>Info ménage :</strong><br>
-            {{ intervention.cleaningComment|nl2br }}
-          </p>
-        {% endif %}
-      </section>
+					{% if intervention.cleaningComment %}
+						<p class="subtle" style="margin-top: 12px;">
+							<strong>Info ménage :</strong><br>
+							{{ intervention.cleaningComment|nl2br }}
+						</p>
+					{% endif %}
+				</section>
 
-      <section class="card">
-        <h3>Photos</h3>
+				<section class="card" data-controller="lightbox">
+					<h3>Photos</h3>
 
-        {% if intervention.photos|length == 0 %}
-          <p class="subtle">Aucune photo.</p>
-        {% else %}
-          <div class="proofs" style="grid-template-columns: repeat(2, 1fr);">
-            {% for photo in intervention.photos %}
-              <a class="card card--compact" href="{{ asset(photo.path) }}" target="_blank" rel="noopener">
-                <img src="{{ asset(photo.path) }}" alt="Photo intervention" style="border-radius: 10px;">
-              </a>
-            {% endfor %}
-          </div>
-          <p class="form-hint" style="margin-top: 10px;">
-            Cliquez sur une photo pour l’ouvrir.
-          </p>
-        {% endif %}
-      </section>
+					{% if intervention.photos|length == 0 %}
+						<p class="subtle">Aucune photo.</p>
+					{% else %}
+						<div class="photos-grid">
+							{% for photo in intervention.photos %}
+								<button type="button" class="photo-thumb" data-action="lightbox#open" data-lightbox-src-value="{{ asset(photo.path) }}" aria-label="Agrandir la photo {{ loop.index }}">
+									<img src="{{ asset(photo.path) }}" alt="Photo intervention {{ loop.index }}">
+								</button>
+							{% endfor %}
+						</div>
 
-      <div class="cta-row">
-        <a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Retour dashboard</a>
-      </div>
+						<p class="form-hint" style="margin-top: 10px;">
+							Cliquez sur une photo pour l’agrandir.
+						</p>
 
-    </div>
-  </div>
-</section>
+						{# Lightbox DOM #}
+						<div class="lightbox" data-lightbox-target="modal" hidden>
+							<div class="lightbox__overlay" data-action="click->lightbox#close" aria-hidden="true"></div>
+							<button type="button" class="lightbox__close" data-action="lightbox#close" aria-label="Fermer">×</button>
+							<img class="lightbox__img" data-lightbox-target="img" alt="Photo agrandie">
+						</div>
+					{% endif %}
+				</section>
+
+				<div class="cta-row">
+					<a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Retour dashboard</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
 {% endblock %}

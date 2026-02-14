@@ -3,71 +3,69 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<section class="section">
+  {# ===== Vue d’ensemble ===== #}
+  <section class="section">
     <div class="container">
+      <header class="section-header">
+        <h2>Vue d’ensemble</h2>
+      </header>
 
-        <header class="section-header">
-            <h2>Vue d’ensemble</h2>
-        </header>
-
-        <div class="columns">
-            <div class="card">
-                <strong>{{ propertiesCount }}</strong><br>
-                <span class="subtle">Logements</span>
-            </div>
-
-            <div class="card">
-                <strong>{{ interventionsCount }}</strong><br>
-                <span class="subtle">Interventions (14 jours)</span>
-            </div>
-
-            <div class="card">
-                <strong>{{ nonConformCount }}</strong><br>
-                <span class="subtle">Non conformes</span>
-            </div>
+      <div class="dashboard-stats columns">
+        <div class="card stat-card">
+          <div class="stat-card__value">{{ propertiesCount }}</div>
+          <div class="stat-card__label">Logements</div>
         </div>
 
+        <div class="card stat-card">
+          <div class="stat-card__value">{{ interventionsCount }}</div>
+          <div class="stat-card__label">Interventions (14 jours)</div>
+        </div>
+
+        <div class="card stat-card {% if nonConformCount > 0 %}stat-card--alert{% endif %}">
+          <div class="stat-card__value">{{ nonConformCount }}</div>
+          <div class="stat-card__label">Non conformes</div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="section">
+  {# ===== Logements ===== #}
+  <section class="section">
     <div class="container">
+      <header class="section-header">
+        <h2>Logements</h2>
+      </header>
 
-        <header class="section-header">
-            <h2>Logements</h2>
-        </header>
+      <div class="stack">
+        {% for property in properties %}
+          {% set last = lastInterventions[property.id] ?? null %}
 
-        <div class="stack">
-            {% for property in properties %}
-            {% set last = lastInterventions[property.id] ?? null %}
+          <div class="card property-card">
+            <h3 class="property-card__title">{{ property.name }}</h3>
 
-            <div class="card">
-                <strong>{{ property.name }}</strong><br>
+            {% if last %}
+              <p class="property-card__meta subtle">
+                Dernière intervention : {{ last.businessDate|date('d/m/Y') }}
+              </p>
 
-                {% if last %}
-                <span class="subtle">
-                    Dernière intervention : {{ last.businessDate|date('d/m/Y') }}
-                </span>
+              <div class="property-card__actions">
                 <a class="btn btn-secondary"
-   href="{{ path('owner_intervention_show', {id: lastInterventions[property.id].id}) }}">
-  Voir le détail
-</a>
+                   href="{{ path('owner_intervention_show', { id: last.id }) }}">
+                  Voir le détail
+                </a>
 
                 {% if last.isConform %}
-                <span class="badge badge--success">Conforme</span>
+                  <span class="badge badge--success">Conforme</span>
                 {% else %}
-                <span class="badge badge--warning">Non conforme</span>
+                  <span class="badge badge--warning">Non conforme</span>
                 {% endif %}
-                {% else %}
-                <span class="subtle">Aucune intervention</span>
-                {% endif %}
-            </div>
-            
-            {% endfor %}
-            
-</a>
-        </div>
-
+              </div>
+            {% else %}
+              <p class="property-card__meta subtle">Aucune intervention</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
     </div>
-</section>
+  </section>
 {% endblock %}

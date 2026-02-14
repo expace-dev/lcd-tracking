@@ -1,0 +1,81 @@
+<div class="container nav">
+
+	<a class="nav__brand" href="{{ path('app_home') }}" aria-label="LCD Tracking">
+		<img class="nav__logo" src="{{ asset('/images/logo_transparent.png') }}" alt="LCD Tracking">
+	</a>
+
+	{# ================= DESKTOP ================= #}
+	<nav class="nav__links" aria-label="Navigation principale">
+		{% if app.user %}
+			<a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Dashboard</a>
+			<a class="btn btn-secondary" href="{{ path('owner_properties_index') }}">Logements</a>
+
+			<a class="btn btn-secondary" href="{{ path('owner_workers_index') }}">Intervenants</a>
+			<a class="btn btn-secondary" href="#" tabindex="-1" aria-disabled="true">Prestations</a>
+			<a class="btn btn-secondary" href="{{ path('owner_onboarding') }}" tabindex="-1">Paramètres</a>
+		{% else %}
+			<a class="btn btn-secondary" href="#probleme">Le problème</a>
+			<a class="btn btn-secondary" href="#solution">Solution</a>
+			<a class="btn btn-secondary" href="#faq">FAQ</a>
+		{% endif %}
+	</nav>
+
+	<div class="nav__actions">
+		{% if app.user %}
+			<a class="btn btn-primary nav__cta" href="{{ path('app_logout') }}" data-turbo="false" data-turbo-prefetch="false">
+				Déconnexion
+			</a>
+		{% else %}
+			<a class="btn btn-secondary nav__login" href="{{ path('app_login') }}">Connexion</a>
+			<a class="btn btn-primary nav__cta" href="{{ path('app_register') }}">Demander un accès</a>
+		{% endif %}
+	</div>
+
+	{# ================= MOBILE ================= #}
+	<details class="nav__mobile">
+		<summary class="nav__burger" aria-label="Ouvrir le menu">
+			<span class="nav__burgerIcon" aria-hidden="true"></span>
+		</summary>
+
+		<div class="nav__drawer" aria-label="Menu mobile">
+			<div class="nav__drawerTop">
+
+				<a href="{{ path('app_home') }}" class="nav__drawerBrand" aria-label="Accueil LCD Tracking">
+					<img src="{{ asset('/images/logo_transparent.png') }}" alt="LCD Tracking" class="nav__drawerLogo">
+				</a>
+
+				<button type="button" class="nav__drawerClose" aria-label="Fermer le menu" onclick="this.closest('details').removeAttribute('open')">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+
+
+			<nav class="nav__drawerLinks" aria-label="Navigation mobile">
+				{% if app.user %}
+					<a class="nav__drawerLink" href="{{ path('owner_dashboard') }}">Dashboard</a>
+					<a class="nav__drawerLink" href="{{ path('owner_properties_index') }}">Mes logements</a>
+
+					<a class="nav__drawerLink is-disabled" href="#" aria-disabled="true" tabindex="-1">Mes intervenants</a>
+					<a class="nav__drawerLink is-disabled" href="#" aria-disabled="true" tabindex="-1">Mes interventions</a>
+				{% else %}
+					<a class="nav__drawerLink" href="#probleme">Le problème</a>
+					<a class="nav__drawerLink" href="#solution">Solution</a>
+					<a class="nav__drawerLink" href="#faq">FAQ</a>
+				{% endif %}
+			</nav>
+
+			<div class="nav__drawerActions">
+				{% if app.user %}
+					<a class="btn btn-primary" href="{{ path('app_logout') }}" data-turbo="false" data-turbo-prefetch="false">
+						Déconnexion
+					</a>
+				{% else %}
+					<a class="btn btn-secondary" href="{{ path('app_login') }}">Connexion</a>
+					<a class="btn btn-primary" href="{{ path('app_register') }}">Demander un accès</a>
+				{% endif %}
+			</div>
+		</div>
+	</details>
+
+</div>

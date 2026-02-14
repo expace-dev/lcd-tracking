@@ -1,0 +1,23 @@
+.hero-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+@media (min-width: 520px){
+  .hero-card{ padding: 22px; }
+}
+
+.card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 18px;
+  box-shadow: none;
+}
+
+.card--compact{
+  padding: 14px;
+}

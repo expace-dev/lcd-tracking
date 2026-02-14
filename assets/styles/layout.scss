@@ -1,0 +1,199 @@
+.container{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.site-header{
+  padding: 18px 0 12px;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+
+.site-main{
+  padding: 0 0 24px;
+}
+
+.section{
+  padding: 18px 0;
+}
+
+.section-header{
+  margin-bottom: 14px;
+}
+.cta-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+.columns{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 900px){
+  .columns{
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+}
+.stack{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.steps{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.step{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 14px 16px;
+}
+.step-bullet{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #EFF6FF;
+  color: var(--primary);
+  font-weight: 900;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+.step-body{
+  color: var(--text);
+  max-width: 72ch;
+}
+.proof{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.proofs{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+.proofs--hero{
+  grid-template-columns: 1fr 1fr;
+}
+@media (min-width: 900px){
+  .proofs{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 520px){
+  .cta-row{ flex-direction: column; align-items: stretch; }
+  .btn{ width: 100%; }
+  .btn-secondary{ background: transparent; }
+}
+.proof-icon{
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  background: #F1F5F9;
+  border: 1px solid var(--border);
+  font-size: 16px;
+}
+.proof-text{
+  font-weight: 800;
+}
+.section--cta{
+  padding: 26px 0;
+  background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+}
+.cta-band{
+  box-shadow: var(--shadow);
+  padding: 22px;
+  text-align: center;
+}
+.cta-band h2{
+  margin-bottom: 10px;
+}
+.cta-band .subtle{
+  margin: 0 auto 14px;
+}
+.reassurance{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+
+
+
+/* layout.scss */
+
+/* 1) Hero avec background */
+.hero-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2) Image de fond + effet léger */
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /* Remplace l’URL par ton chemin asset final */
+  background-image: url("../images/hero-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* image très discrète */
+
+  /* petit effet “soft” */
+  filter: blur(2px);
+  transform: scale(1.03);
+
+  pointer-events: none;
+}
+
+/* 3) Overlay blanc pour garantir le contraste */
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  
+  pointer-events: none;
+}
+
+/* 4) Remettre le contenu au-dessus */
+.hero-card > * {
+  position: relative;
+  z-index: 1;
+}
+.hero-card .badge {
+  background: #ffffff;
+  border-color: rgba(14, 47, 79, 0.12);
+  color: var(--blue-700);
+  box-shadow: 0 4px 12px rgba(14, 47, 79, 0.06);
+}
+
+

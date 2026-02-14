@@ -1,0 +1,20 @@
+.list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list > li{
+  position: relative;
+  padding-left: 22px;
+  margin: 10px 0;
+}
+
+.list > li::before{
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-size: 0.95em;
+  color: var(--muted);
+}

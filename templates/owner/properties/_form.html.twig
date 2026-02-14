@@ -1,24 +1,29 @@
 {{ form_start(form) }}
 
-  {# erreurs globales #}
-  {{ form_errors(form) }}
+{# erreurs globales #}
+{{ form_errors(form) }}
 
-  <div class="form-row">
-    {{ form_label(form.name) }}
-    {{ form_widget(form.name, { attr: { placeholder: 'Ex: Studio Centre, Appartement Quartier Nord…' } }) }}
-    {{ form_errors(form.name) }}
-  </div>
+<div class="form-row">
+	{{ form_label(form.name) }}
+	{{ form_widget(form.name, { attr: { placeholder: 'Ex: Studio Centre, Appartement Quartier Nord…' } }) }}
+	{{ form_errors(form.name) }}
+</div>
 
-  <div class="form-row">
-    {{ form_label(form.assignedWorker) }}
-    {{ form_widget(form.assignedWorker) }}
-    {{ form_errors(form.assignedWorker) }}
-    <p class="form-hint">Optionnel. Vous pourrez assigner un intervenant plus tard.</p>
-  </div>
+<div class="form-row">
+	{{ form_label(form.assignedWorker) }}
+	{{ form_widget(form.assignedWorker) }}
+	{{ form_errors(form.assignedWorker) }}
 
-  <div class="cta-row" style="margin-top: 12px;">
-    <button class="btn btn-primary" type="submit">{{ button_label|default('Enregistrer') }}</button>
-    <a class="btn btn-secondary" href="{{ path('owner_properties_index') }}">Retour</a>
-  </div>
+</div>
+
+<div class="auth-help">Vous pourrez assigner un intervenant plus tard.</div>
+
+<div class="cta-row" style="margin-top: 12px;">
+	<button class="btn btn-primary" type="submit">Ajouter ce logement</button>
+	{#
+	      <a class="btn btn-secondary" href="{{ path('owner_properties_index') }}">Retour</a>
+	    #}
+
+</div>
 
 {{ form_end(form) }}

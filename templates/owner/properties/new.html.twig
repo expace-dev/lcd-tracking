@@ -2,15 +2,23 @@
 {% block title %}Nouveau logement{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
-    <header class="section-header">
-      <h2>Ajouter un logement</h2>
-    </header>
 
-    <div class="form-card card">
-      {% include 'owner/properties/_form.html.twig' with { form: form, button_label: 'Créer' } %}
-    </div>
-  </div>
-</section>
+<section class="section">
+		<div class="container">
+			<header class="section-header">
+				<h2>Ajouter un logement</h2>
+				<p class="subtle">Ajoutez un nouveau bien à votre espace LCD Tracking pour en assurer le suivi.</p>
+			</header>
+		</div>
+	</section>
+
+
+	<div class="auth-main">
+		<div class="auth-card card">
+
+			{% include 'owner/properties/_form.html.twig' with { form: form, button_label: 'Créer' } %}
+		</div>
+	</div>
+
+
 {% endblock %}

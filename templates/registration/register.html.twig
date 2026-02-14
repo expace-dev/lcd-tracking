@@ -1,25 +1,41 @@
 {% extends 'base.html.twig' %}
-{% block title %}Créer mon accès{% endblock %}
+{% block title %}Créer mon accès
+{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
-    <header class="section-header">
-      <h2>Créer mon accès propriétaire</h2>
-      <p class="subtle">Vous recevrez un email pour confirmer votre adresse (non bloquant pour démarrer).</p>
-    </header>
 
-    <div class="form-card card">
-      {{ form_start(form) }}
-        {{ form_row(form.firstName) }}
-        {{ form_row(form.lastName) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.plainPassword) }}
+	<section class="section">
+		<div class="container">
+			<header class="section-header">
+				<h2>Créer mon accès propriétaire</h2>
+				<p class="subtle">Vous recevrez un email pour confirmer votre adresse (non bloquant pour démarrer).</p>
+			</header>
+		</div>
+	</section>
 
-        <button class="btn btn-primary" type="submit">Créer mon accès</button>
-        <p class="form-hint">Déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a></p>
-      {{ form_end(form) }}
-    </div>
-  </div>
-</section>
+
+	<div class="auth-main">
+		<div class="auth-card card">
+
+			{{ form_start(form) }}
+			<div class="form-row">
+				{{ form_row(form.firstName) }}
+			</div>
+			<div class="form-row">
+				{{ form_row(form.lastName) }}
+			</div>
+			<div class="form-row">
+				{{ form_row(form.email) }}
+			</div>
+			<div class="form-row">
+				{{ form_row(form.plainPassword.first) }}
+			</div>
+			<div class="form-row">
+				{{ form_row(form.plainPassword.second) }}
+			</div>
+
+			<button class="btn btn-primary" type="submit">Créer mon accès</button>
+			{{ form_end(form) }}
+		</div>
+	</div>
 {% endblock %}

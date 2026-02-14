@@ -36,22 +36,29 @@ final class WorkerController extends AbstractController
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $phone = (string) $searchForm->get('phone')->getData();
-            $phone = $this->normalizePhone($phone);
+            $phone = preg_replace('/\D+/', '', $phone) ?? '';
 
             $foundWorker = $workerRepository->findOneBy(['phone' => $phone]);
 
-            if ($foundWorker instanceof Worker) {
-                // déjà lié => on le signale
-                if ($workers->contains($foundWorker)) {
-                    $this->addFlash('success', 'Intervenant déjà lié à votre compte.');
-                    return $this->redirectToRoute('owner_workers_index');
-                }
-
-                // Sinon: on laisse $foundWorker à la vue pour proposer le bouton "Lier"
-            } else {
-                // Pas trouvé -> création avec phone prérempli
+            if (!$foundWorker instanceof Worker) {
                 return $this->redirectToRoute('owner_workers_new', ['phone' => $phone]);
             }
+
+            if ($workers->contains($foundWorker)) {
+                $this->addFlash('success', 'Intervenant déjà lié à votre compte.');
+                return $this->redirectToRoute('owner_workers_index');
+            }
+
+
+
+            // S’il est déjà lié
+            if ($workers->contains($foundWorker)) {
+                $this->addFlash('success', 'Intervenant déjà lié à votre compte.');
+                return $this->redirectToRoute('owner_workers_index');
+            }
+
+            // Sinon : on laisse $foundWorker pour affichage du bouton "Lier"
+            $this->addFlash('success', 'Intervenant trouvé. Vous pouvez le lier à votre compte.');
         }
 
         return $this->render('owner/workers/index.html.twig', [

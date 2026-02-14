@@ -1,0 +1,64 @@
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+:focus-visible{
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.skip-link{
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.skip-link:focus{
+  left: 12px;
+  z-index: 999;
+}
+
+// Styles pour les liens de partage intervenants
+.worker-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.worker-link__feedback {
+  font-weight: 700;
+  color: var(--blue-700);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.worker-link__feedback.is-visible {
+  opacity: 1;
+}
+.worker-link__feedback.is-error{
+  color: #9A3412; /* même teinte que tes warnings */
+}
+.btn.is-copied{
+  border-color: rgba(22, 163, 74, .35);
+  background: #F0FDF4;
+  color: #166534;
+}
+
+.btn.is-error{
+  border-color: rgba(234, 88, 12, .35);
+  background: #FFF7ED;
+  color: #9A3412;
+}

@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block title %}Logements{% endblock %}
+{% block title %}Logements
+{% endblock %}
 
 {% block body %}
 	<section class="section">
@@ -32,7 +33,8 @@
 							Intervenant :
 							{% if property.assignedWorker %}
 								<strong>{{ property.assignedWorker.fullName }}</strong>
-								— {{ property.assignedWorker.phone }}
+								—
+								{{ property.assignedWorker.phone }}
 							{% else %}
 								<span class="badge badge--warning">Non assigné</span>
 							{% endif %}
@@ -41,9 +43,7 @@
 						<div class="cta-row" style="margin-top: 12px;">
 							<a class="btn btn-secondary" href="{{ path('owner_properties_edit', {id: property.id}) }}">Gérer</a>
 
-							<form method="post"
-								  action="{{ path('owner_properties_delete', {id: property.id}) }}"
-								  onsubmit="return confirm('Supprimer ce logement ? Toutes les interventions seront supprimées.');">
+							<form method="post" action="{{ path('owner_properties_delete', {id: property.id}) }}" onsubmit="return confirm('Supprimer ce logement ? Toutes les interventions seront supprimées.');">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete_property_' ~ property.id) }}">
 								<button class="btn btn-secondary" type="submit">Supprimer</button>
 							</form>
@@ -52,12 +52,14 @@
 						{% if property.assignedWorker %}
 							<div style="margin-top: 10px;">
 								<p class="subtle" style="margin: 0 0 6px;">Lien intervenant :</p>
-								<a class="badge badge--info"
-								   href="{{ path('worker_access', { token: property.assignedWorker.accessToken }) }}"
-								   target="_blank"
-								   rel="noopener">
-									/w/{{ property.assignedWorker.accessToken }}
-								</a>
+								<div class="worker-link" data-controller="clipboard" data-clipboard-text-value="{{ absolute_url(path('worker_access', { token: property.assignedWorker.accessToken })) }}">
+
+									<button type="button" class="btn btn-secondary" data-action="clipboard#copy">
+										Copier le lien intervenant
+									</button>
+
+									<span class="worker-link__feedback" data-clipboard-target="feedback" aria-live="polite"></span>
+								</div>
 							</div>
 						{% endif %}
 					</div>

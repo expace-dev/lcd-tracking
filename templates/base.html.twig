@@ -1,85 +1,75 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<title>LCD Tracking -
+			{% block title %}Bienvenue
+			{% endblock %}
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="LCD Tracking formalise les validations clés de fin de séjour et de ménage pour protéger propriétaires et intervenants, avec une trace factuelle.">
 
-<head>
-    <meta charset="UTF-8">
-    <title>LCD Tracking - {% block title %}Bienvenue{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="LCD Tracking formalise les validations clés de fin de séjour et de ménage pour protéger propriétaires et intervenants, avec une trace factuelle.">
-    
-    {#
-    {% block stylesheets %}
-    {% endblock %}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-    
-    #}    
-    {% block javascripts %}
-    {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
-    <link rel="stylesheet" href="{{ asset('styles.css') }}">
-</head>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
 
-<body>
-    {% if show_header is defined and show_header %}
-    <a class="skip-link" href="#main">Aller au contenu</a>
+	<body>
+		<a class="skip-link" href="#main">Aller au contenu</a>
 
-    <header class="site-header">
-        <div class="container">
-            <div class="hero-card">
-                <p class="eyebrow">LCD Tracking</p>
+		<header class="site-header">
+			{{ include('partials/_navbar.html.twig') }}
+		</header>
 
-                <h1>Sécurisez vos locations courte durée, sans débat.</h1>
-                <p class="lead">
-                    Formalisez les points essentiels de fin de séjour et de ménage
-                    avec des validations simples, horodatées, consultables.
-                </p>
+		<main id="main" class="site-main">
+			{% if show_header is defined and show_header %}
+				<section class="section section--hero">
+					<div class="container">
+						<div class="hero-card">
+							<p class="eyebrow">LCD Tracking</p>
 
-                <div class="cta-row" aria-label="Actions principales">
-                    <a href="{{ path('app_register') }}" class="btn btn-primary">Demander un accès</a>
-                    <a href="#fonctionnement" class="btn btn-secondary">Voir comment ça marche</a>
-                </div>
+							<h1>Sécurisez vos locations courte durée, sans débat.</h1>
+							<p class="lead">
+								Formalisez les points essentiels de fin de séjour et de ménage avec des validations simples, horodatées, consultables.
+							</p>
 
-                <p class="reassurance" aria-label="Points clés">
-                    <span class="badge">Clair</span>
-                    <span class="badge">Factuel</span>
-                    <span class="badge">&lt; 1 min</span>
-                </p>
+							<div class="cta-row" aria-label="Actions principales">
+								<a href="{{ path('app_register') }}" class="btn btn-primary">Demander un accès</a>
+								<a href="#fonctionnement" class="btn btn-secondary">Voir comment ça marche</a>
+							</div>
 
-                <div class="proofs proofs--hero" aria-label="Micro preuves">
-                    <div class="proof card card--compact">
-                        <div class="proof-icon" aria-hidden="true">✓</div>
-                        <div class="proof-text">Checklist courte</div>
-                    </div>
-                    <div class="proof card card--compact">
-                        <div class="proof-icon" aria-hidden="true">⛨</div>
-                        <div class="proof-text">Trace horodatée</div>
-                    </div>
-                </div>
+							<p class="reassurance" aria-label="Points clés">
+								<span class="badge">Clair</span>
+								<span class="badge">Factuel</span>
+								<span class="badge">Rapide</span>
+							</p>
 
-                <!-- Notes système éventuelles -->
-                <!-- <p class="system-note system-note--success">Enregistré.</p> -->
-                <!-- <p class="system-note system-note--warning">Non confirmé : action nécessaire.</p> -->
-            </div>
-        </div>
-    </header>
-{% endif %}
-    
-    <main id="main" class="site-main">
+							<div class="proofs proofs--hero" aria-label="Micro preuves">
+								<div class="proof card card--compact">
+									<div class="proof-icon" aria-hidden="true">✓</div>
+									<div class="proof-text">Checklist courte</div>
+								</div>
+								<div class="proof card card--compact">
+									<div class="proof-icon" aria-hidden="true">⛨</div>
+									<div class="proof-text">Trace horodatée</div>
+								</div>
+							</div>
 
-        {% block body %}{% endblock %}
+							{# Notes système éventuelles #}
+						{# <p class="system-note system-note--success">Enregistré.</p> #}
+							{# <p class="system-note system-note--warning">Non confirmé : action nécessaire.</p> #}
+						</div>
+					</div>
+				</section>
+			{% endif %}
 
-    </main>
+			{% block body %}{% endblock %}
+		</main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <nav class="footer-links" aria-label="Liens légaux">
-                <a href="{{ path('app_home') }}#contact">Contact</a>
-                <a href="{{ path('app_home') }}#">Mentions légales</a>
-                <a href="{{ path('app_home') }}#">Politique de confidentialité</a>
-            </nav>
-        </div>
-    </footer>
-</body>
-
+		{{ include('partials/_footer.html.twig') }}
+	</body>
 </html>

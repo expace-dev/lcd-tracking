@@ -1,0 +1,20 @@
+@use './variables.scss'; /* Variables CSS personnalisées */
+@use './global.scss'; /* Styles de base */
+@use './layout.scss'; /* Styles de mise en page */
+@use './title.scss'; /* Styles pour les titres */
+@use './links.scss'; /* Styles pour les liens */
+@use './cards.scss'; /* Styles pour les cartes */ 
+@use './lists.scss'; /* Styles pour les listes */ 
+@use './badges.scss'; /* Styles pour les badges */ 
+@use './buttons.scss'; /* Styles pour les boutons */ 
+@use './faq.scss'; /* Styles pour la section FAQ */
+@use './forms.scss'; /* Styles pour les formulaires */
+@use './footer.scss'; /* Styles pour le pied de page */
+@use './system.scss'; /* Styles pour les notes système */
+@use './navbar.scss'; /* Styles pour la barre de navigation */
+@use './auth.scss'; /* Styles pour les pages d'authentification */
+@use './spacing.scss'; /* Utilitaires d'espacement */
+@use './dashboard.scss'; /* Styles spécifiques au tableau de bord */
+@use './photos.scss'; /* Styles pour la galerie de photos */
+
+

@@ -1,0 +1,257 @@
+/* ================= NAVBAR ================= */
+
+.nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Brand */
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav__logo {
+  height: 40px;
+  width: auto;
+}
+
+/* Desktop links */
+.nav__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* Right actions */
+.nav__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav__cta {
+  white-space: nowrap;
+}
+
+.nav__login {
+  white-space: nowrap;
+}
+
+.nav .btn {
+  min-height: 36px;
+  padding: 8px 14px;
+  font-size: 0.88rem;
+  border-radius: 10px;
+}
+
+.nav .btn-secondary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+
+.nav .btn-secondary:hover {
+  background: var(--blue-100);
+  color: var(--blue-700);
+}
+
+.is-disabled {
+  opacity: .55;
+  pointer-events: none;
+}
+
+/* Mobile menu hidden on desktop */
+.nav__mobile {
+  display: none;
+}
+
+/* Sticky header (desktop + général) */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ================= MOBILE 950px ================= */
+@media (max-width: 950px) {
+
+  /* IMPORTANT: le blur/backdrop peut “piéger” le fixed */
+  .site-header {
+    backdrop-filter: none !important;
+  }
+
+  .nav__links,
+  .nav__actions {
+    display: none;
+  }
+
+  .nav__mobile {
+    display: block;
+    justify-self: end;
+    position: relative;
+    /* neutre dans la grille */
+  }
+
+  /* Le drawer ne doit pas exister tant que fermé */
+  .nav__mobile:not([open]) .nav__drawer {
+    display: none;
+  }
+
+  /* Burger */
+  .nav__burger {
+    list-style: none;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav__burger::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Icon burger -> X */
+  .nav__burgerIcon {
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .nav__burgerIcon::before,
+  .nav__burgerIcon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+  }
+
+  .nav__burgerIcon::before {
+    top: -6px;
+  }
+
+  .nav__burgerIcon::after {
+    top: 6px;
+  }
+
+  .nav__mobile[open] .nav__burgerIcon {
+    background: transparent;
+  }
+
+  .nav__mobile[open] .nav__burgerIcon::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .nav__mobile[open] .nav__burgerIcon::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  /* ========== FIX CRITIQUE: Drawer FULLSCREEN au open ========== */
+  .nav__mobile[open] .nav__drawer {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    z-index: 2000;
+
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 18px 16px 22px;
+  }
+
+  /* Top bar */
+  .nav__drawerTop {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 4px 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+
+  .nav__drawerLinks {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    margin-bottom: 16px;
+  }
+
+  .nav__drawerLink {
+    padding: 14px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .nav__drawerLink.is-disabled {
+    opacity: .55;
+    pointer-events: none;
+  }
+
+  .nav__drawerActions {
+    display: grid;
+    gap: 10px;
+  }
+
+  .nav__drawerTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav__drawerBrand {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nav__drawerLogo {
+    height: 36px;
+    width: auto;
+  }
+
+  .nav__drawerClose {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav__drawerClose:hover {
+    background: var(--blue-100);
+  }
+}
