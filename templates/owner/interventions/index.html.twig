@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mes prestations{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Prestations</h2>
+      <p class="subtle">Filtrez vos interventions par date, logement et statut.</p>
+    </header>
+
+    <div class="card card--compact">
+      {{ form_start(form, { attr: { class: 'filters' } }) }}
+        <div class="filters__grid">
+          {{ form_row(form.from) }}
+          {{ form_row(form.to) }}
+          {{ form_row(form.property) }}
+          {{ form_row(form.conform) }}
+        </div>
+        <div class="cta-row">
+          <button class="btn btn-primary" type="submit">Rechercher</button>
+          <a class="btn btn-secondary" href="{{ path('owner_interventions_index') }}">Réinitialiser</a>
+        </div>
+      {{ form_end(form) }}
+    </div>
+
+    <div class="stack" id="interventions_list">
+      {% include 'owner/interventions/_list.html.twig' with { interventions: interventions } %}
+    </div>
+
+    <div id="interventions_pager">
+      {% if hasNext %}
+        <a class="btn btn-secondary"
+           href="{{ nextUrl }}"
+           data-turbo-stream
+           data-controller="infinite-pager"
+           data-infinite-pager-target="link">
+          Charger plus
+        </a>
+        <span data-infinite-pager-target="sentinel" aria-hidden="true"></span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

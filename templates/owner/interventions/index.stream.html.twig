@@ -1,0 +1,22 @@
+<turbo-stream action="append" target="interventions_list">
+  <template>
+    {% include 'owner/interventions/_list.html.twig' with { interventions: interventions } %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="interventions_pager">
+  <template>
+    <div id="interventions_pager">
+      {% if hasNext %}
+        <a class="btn btn-secondary"
+           href="{{ nextUrl }}"
+           data-turbo-stream
+           data-controller="infinite-pager"
+           data-infinite-pager-target="link">
+          Charger plus
+        </a>
+        <span data-infinite-pager-target="sentinel" aria-hidden="true"></span>
+      {% endif %}
+    </div>
+  </template>
+</turbo-stream>

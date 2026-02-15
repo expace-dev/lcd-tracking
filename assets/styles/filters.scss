@@ -1,0 +1,12 @@
+.filters__grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 900px){
+  .filters__grid{
+    grid-template-columns: repeat(4, 1fr);
+    align-items: end;
+  }
+}

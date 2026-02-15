@@ -9,6 +9,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Property;
 use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
+use App\Model\InterventionSearch;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Intervention>
@@ -111,6 +113,48 @@ class InterventionRepository extends ServiceEntityRepository
             ->setParameter('owner', $owner)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function qbForOwner(User $owner, InterventionSearch $search): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->innerJoin('i.property', 'p')
+            ->addSelect('p')
+            ->leftJoin('i.createdBy', 'w')
+            ->addSelect('w')
+            ->andWhere('p.owner = :owner')
+            ->setParameter('owner', $owner)
+            ->orderBy('i.businessDate', 'DESC')
+            ->addOrderBy('i.id', 'DESC');
+
+        if ($search->from) {
+            $qb->andWhere('i.businessDate >= :from')
+                ->setParameter('from', $search->from);
+        }
+
+        if ($search->to) {
+            $qb->andWhere('i.businessDate <= :to')
+                ->setParameter('to', $search->to);
+        }
+
+        if ($search->property) {
+            $qb->andWhere('i.property = :property')
+                ->setParameter('property', $search->property);
+        }
+
+        if ($search->conform !== null) {
+            if ($search->conform === true) {
+                $qb->andWhere('i.checkBedMade = true')
+                    ->andWhere('i.checkFloorClean = true')
+                    ->andWhere('i.checkBathroomOk = true')
+                    ->andWhere('i.checkKitchenOk = true')
+                    ->andWhere('i.checkLinenChanged = true');
+            } else {
+                $qb->andWhere('i.checkBedMade = false OR i.checkFloorClean = false OR i.checkBathroomOk = false OR i.checkKitchenOk = false OR i.checkLinenChanged = false');
+            }
+        }
+
+        return $qb;
     }
 
     //    /**

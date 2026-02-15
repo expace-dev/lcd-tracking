@@ -1,0 +1,26 @@
+{% for i in interventions %}
+  <div class="card property-card">
+    <h3 class="property-card__title">{{ i.property.name }}</h3>
+
+    <p class="property-card__meta subtle">
+      Intervention du {{ i.businessDate|date('d/m/Y') }}
+      — Intervenant : {{ i.createdBy ? i.createdBy.fullName : '—' }}
+    </p>
+
+    <div class="property-card__actions">
+      <a class="btn btn-secondary" href="{{ path('owner_intervention_show', { id: i.id }) }}">
+        Voir le détail
+      </a>
+
+      {% if i.conform %}
+        <span class="badge badge--success">Conforme</span>
+      {% else %}
+        <span class="badge badge--warning">Non conforme</span>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <div class="card">
+    <p class="subtle">Aucune intervention ne correspond à votre recherche.</p>
+  </div>
+{% endfor %}
