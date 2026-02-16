@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Contact</h2>
+      <p class="subtle">Une question, un bug, une demande ? Écris-nous, on répond vite.</p>
+    </header>
+
+    <div class="auth-main" style="min-height: auto; padding-top: 0;">
+      <div class="auth-card card form-card">
+
+        {% for label, messages in app.flashes %}
+          {% for m in messages %}
+            <p class="system-note system-note--success">{{ m }}</p>
+          {% endfor %}
+        {% endfor %}
+
+        {% if rate_limited %}
+          <p class="system-note system-note--warning">
+            Trop de demandes. Merci de réessayer dans quelques instants.
+          </p>
+        {% endif %}
+
+        {{ form_start(form) }}
+
+          {# Honeypot (caché visuellement, accessible aux bots) #}
+          <div class="hp-field">
+            {{ form_row(form.website) }}
+          </div>
+
+          <div class="form-row">
+            {{ form_row(form.name) }}
+          </div>
+
+          <div class="form-row">
+            {{ form_row(form.email) }}
+          </div>
+
+          <div class="form-row">
+            {{ form_row(form.message) }}
+            <p class="form-hint">Ne mets pas d’informations sensibles.</p>
+          </div>
+
+          <div class="cta-row" style="margin-top: 12px;">
+            <button class="btn btn-primary" type="submit">Envoyer</button>
+            <a class="btn btn-secondary" href="{{ path('owner_dashboard') }}">Retour</a>
+          </div>
+
+        {{ form_end(form) }}
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block title %}Politique de confidentialité{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <header class="section-header">
+      <h2>Politique de confidentialité</h2>
+    </header>
+
+    <div class="stack">
+
+      <section class="card">
+        <h3>Responsable du traitement</h3>
+        <p class="subtle">
+          Le responsable du traitement est l’éditeur du site LCD Tracking.
+        </p>
+      </section>
+
+      <section class="card">
+        <h3>Données collectées</h3>
+        <ul class="list">
+          <li>Nom, prénom</li>
+          <li>Email</li>
+          <li>Numéro de téléphone</li>
+          <li>Données liées aux logements</li>
+          <li>Données liées aux interventions</li>
+          <li>Photos téléchargées</li>
+          <li>Données techniques de connexion</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>Finalités</h3>
+        <ul class="list">
+          <li>Fourniture du service</li>
+          <li>Traçabilité des interventions</li>
+          <li>Sécurisation des accès</li>
+          <li>Maintenance et amélioration</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>Durée de conservation</h3>
+        <p class="subtle">
+          Les données d’intervention sont conservées pour une durée maximale de 6 mois.
+          Les comptes sont conservés tant qu’ils sont actifs.
+        </p>
+      </section>
+
+      <section class="card">
+        <h3>Sécurité</h3>
+        <ul class="list">
+          <li>Authentification sécurisée</li>
+          <li>Protection CSRF</li>
+          <li>Accès intervenant par token unique</li>
+          <li>Isolation des données par propriétaire</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>Vos droits</h3>
+        <p class="subtle">
+          Conformément au RGPD, vous disposez d’un droit d’accès, de rectification,
+          d’effacement et d’opposition.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -93,6 +93,7 @@ final class InterventionController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+        /*
         if ($intervention->isConfirmed()) {
             return $this->render('worker/intervention_confirmed.html.twig', [
                 'worker' => $worker,
@@ -100,7 +101,7 @@ final class InterventionController extends AbstractController
                 'property' => $intervention->getProperty(),
             ]);
         }
-
+        */
         $form = $this->createForm(InterventionType::class, $intervention);
         $form->handleRequest($request);
 

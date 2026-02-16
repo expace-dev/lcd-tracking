@@ -1,0 +1,125 @@
+/* ===== Checkbox bouton (checkbtn) ===== */
+
+.checkbtn {
+  width: 100%;
+}
+
+/* Input reste dans le DOM (focus + form submit), mais invisible */
+.checkbtn__input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* Le label = le bouton */
+.checkbtn__label {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  border: 1px solid var(--border);
+  background: var(--blue-100);
+  color: var(--blue-900);
+  font-weight: 800;
+
+  transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
+}
+
+.checkbtn__label:active {
+  transform: translateY(1px);
+}
+
+/* Texte */
+.checkbtn__text {
+  display: inline-block;
+}
+
+/* Icône check : cachée tant que non coché */
+.checkbtn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid transparent;
+
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity .15s ease, transform .15s ease;
+}
+
+/* Hover (non coché) */
+.checkbtn__label:hover {
+  background: color-mix(in srgb, var(--blue-100) 75%, white);
+  border-color: color-mix(in srgb, var(--border) 60%, var(--blue-100));
+}
+
+/* Focus visible quand on tab sur l'input */
+.checkbtn__input:focus-visible + .checkbtn__label {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ÉTAT COCHÉ -> style “primary” (orange) */
+.checkbtn__input:checked + .checkbtn__label {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.checkbtn__input:checked + .checkbtn__label:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* Affiche le check quand coché */
+.checkbtn__input:checked + .checkbtn__label .checkbtn__icon {
+  opacity: 1;
+  transform: scale(1);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.30);
+}
+/* ===== Textarea comme les selects ===== */
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: #fff;
+  font-family: inherit;
+  font-size: 15px;
+
+  resize: vertical; /* permet agrandir verticalement uniquement */
+  min-height: 110px;
+
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}

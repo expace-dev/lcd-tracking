@@ -1,45 +1,50 @@
 {% extends 'base.html.twig' %}
-{% block title %}Mes prestations{% endblock %}
+{% block title %}Mes prestations
+{% endblock %}
 
 {% block body %}
-<section class="section">
-  <div class="container">
-    <header class="section-header">
-      <h2>Prestations</h2>
-      <p class="subtle">Filtrez vos interventions par date, logement et statut.</p>
-    </header>
+	<section class="section">
+		<div class="container">
+			<header class="section-header">
+				<h2>Prestations</h2>
+				<p class="subtle">Filtrez vos interventions par date, logement et statut.</p>
+			</header>
 
-    <div class="card card--compact">
-      {{ form_start(form, { attr: { class: 'filters' } }) }}
-        <div class="filters__grid">
-          {{ form_row(form.from) }}
-          {{ form_row(form.to) }}
-          {{ form_row(form.property) }}
-          {{ form_row(form.conform) }}
-        </div>
-        <div class="cta-row">
-          <button class="btn btn-primary" type="submit">Rechercher</button>
-          <a class="btn btn-secondary" href="{{ path('owner_interventions_index') }}">Réinitialiser</a>
-        </div>
-      {{ form_end(form) }}
-    </div>
+			<div class="card card--compact mb-4">
+				{{ form_start(form, { attr: { class: 'filters' }, method: 'GET' }) }}
+				<div class="filters__grid">
+					{{ form_row(form.from) }}
+					{{ form_row(form.to) }}
+					{{ form_row(form.property) }}
+					{{ form_row(form.conform) }}
+				</div>
 
-    <div class="stack" id="interventions_list">
-      {% include 'owner/interventions/_list.html.twig' with { interventions: interventions } %}
-    </div>
+				<div class="cta-row">
+					<button class="btn btn-primary" type="submit">Rechercher</button>
+					<a class="btn btn-secondary" href="{{ path('owner_interventions_index') }}">Réinitialiser</a>
+				</div>
+				{{ form_end(form) }}
+			</div>
 
-    <div id="interventions_pager">
-      {% if hasNext %}
-        <a class="btn btn-secondary"
-           href="{{ nextUrl }}"
-           data-turbo-stream
-           data-controller="infinite-pager"
-           data-infinite-pager-target="link">
-          Charger plus
-        </a>
-        <span data-infinite-pager-target="sentinel" aria-hidden="true"></span>
-      {% endif %}
-    </div>
-  </div>
-</section>
+			{# Liste #}
+			<div class="stack" id="interventions_list">
+				{% include 'owner/interventions/_list.html.twig' with { interventions: interventions } %}
+			</div>
+
+			{# Pager "scroll pur" (pas de lien, juste une URL stockée) #}
+			<div id="interventions_pager">
+				{% if hasNext %}
+					<div class="infinite" data-controller="infinite-pager" data-infinite-pager-url-value="{{ nextUrl }}">
+
+						<div class="infinite__loading subtle" data-infinite-pager-target="loader" hidden>
+							Chargement…
+						</div>
+
+						<span class="infinite__sentinel" data-infinite-pager-target="sentinel" aria-hidden="true"></span>
+					</div>
+				{% endif %}
+			</div>
+
+		</div>
+	</section>
 {% endblock %}

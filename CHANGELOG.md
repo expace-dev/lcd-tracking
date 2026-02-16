@@ -4,6 +4,43 @@ Toutes les évolutions notables du projet LCD Tracking sont documentées ici.
 
 ---
 
+# [0.5.0] — Prestations, Infinite Scroll & UX Stabilisation (Beta)
+
+## ➕ Ajouts
+
+- Page **Prestations (Owner)**
+  - Liste paginée des interventions
+  - Filtres par :
+    - Date début
+    - Date fin
+    - Logement
+    - Statut (conforme / non conforme)
+  - Méthode GET (URL partageable)
+- Infinite scroll via Turbo Stream
+- Pagination progressive (append et non replace)
+- Scroll automatique avec IntersectionObserver
+- Bouton fallback "Charger plus"
+
+## 🎨 Améliorations UX
+
+- Refonte cartes interventions
+- Alignement responsive des actions (mobile / desktop)
+- Lightbox photos custom (sans plugin externe)
+- Bouton copie lien intervenant (Stimulus clipboard)
+- Checkboxes style "button toggle" pour intervenant
+- Uniformisation textarea (bordure comme select)
+- Amélioration feedback visuel mobile
+
+## 🔧 Corrections
+
+- Correction pagination Turbo (append correct)
+- Gestion correcte des query params page
+- Stabilisation contrôleur infinite-pager
+- Correction accès Doctrine (createdBy au lieu de worker)
+- Correction affichage badge / alignement desktop
+
+---
+
 # [0.4.0] — Onboarding & Gestion Propriétaire
 
 ## ➕ Ajouts
@@ -68,41 +105,39 @@ Toutes les évolutions notables du projet LCD Tracking sont documentées ici.
 
 # 🧭 Roadmap Mise à Jour
 
-## 🎨 Phase UX (prochaine discussion)
+## 🎨 Phase UX Finalisation
 
-- Intégration logo
-- Refactor visuel global
-- Harmonisation badges / steps
-- Amélioration feedback mobile
-- UX upload photo (plus fluide)
+- Ajustement design global
+- Uniformisation composants
+- Amélioration expérience mobile terrain
+- Optimisation upload photo mobile
 
 ---
 
-## 🧱 Phase Stabilisation
+## 🔒 Phase Stabilisation
 
-- Statut confirmé / verrouillage intervention
+- Verrouillage intervention confirmée
 - Auto-save brouillon
-- Séparation logique photos / infos
-- Nettoyage contrôleurs (refactor léger)
+- Nettoyage contrôleurs
+- Tests fonctionnels
 
 ---
 
 ## 📩 Phase Communication
 
-- Activation checkbox urgence
-- Envoi email automatique
-- WhatsApp si configuré
+- Activation mode urgence
+- Notifications email
+- Intégration WhatsApp (optionnelle)
 - Historique des échanges
 
 ---
 
 # 💬 Conclusion
 
-Vous êtes actuellement à un stade :
+Le projet est maintenant :
 
-- 👉 Architecture propre
-- 👉 Domaine métier clair
-- 👉 Flux complet propriétaire / intervenant
-- 👉 Aucune dette critique
-- 👉 Design non finalisé
-- 👉 Prêt pour phase UX
+- ✅ Fonctionnel propriétaire / intervenant
+- ✅ Infinite scroll opérationnel
+- ✅ UX mobile cohérente
+- ✅ Structure stable
+- 🚀 Prêt pour déploiement Beta

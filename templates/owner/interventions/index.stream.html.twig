@@ -1,21 +1,29 @@
+{# Ajoute les nouveaux items à la liste #}
 <turbo-stream action="append" target="interventions_list">
   <template>
     {% include 'owner/interventions/_list.html.twig' with { interventions: interventions } %}
   </template>
 </turbo-stream>
 
+{# Remplace le pager : soit prochaine URL, soit suppression (fin) #}
 <turbo-stream action="replace" target="interventions_pager">
   <template>
     <div id="interventions_pager">
       {% if hasNext %}
-        <a class="btn btn-secondary"
-           href="{{ nextUrl }}"
-           data-turbo-stream
-           data-controller="infinite-pager"
-           data-infinite-pager-target="link">
-          Charger plus
-        </a>
-        <span data-infinite-pager-target="sentinel" aria-hidden="true"></span>
+        <div class="infinite"
+             data-controller="infinite-pager"
+             data-infinite-pager-url-value="{{ nextUrl }}">
+
+          <div class="infinite__loading subtle"
+               data-infinite-pager-target="loader"
+               hidden>
+            Chargement…
+          </div>
+
+          <span class="infinite__sentinel"
+                data-infinite-pager-target="sentinel"
+                aria-hidden="true"></span>
+        </div>
       {% endif %}
     </div>
   </template>

@@ -1,0 +1,12 @@
+<h2>Nouveau message de contact</h2>
+
+<p><strong>Nom :</strong> {{ contact.name }}</p>
+<p><strong>Email :</strong> {{ contact.email }}</p>
+<p><strong>Date :</strong> {{ contact.createdAt|date('d/m/Y H:i') }}</p>
+<p><strong>IP :</strong> {{ contact.ip ?? '—' }}</p>
+
+<hr>
+
+<p style="white-space: pre-wrap; font-family: ui-sans-serif, system-ui;">
+{{ contact.message }}
+</p>

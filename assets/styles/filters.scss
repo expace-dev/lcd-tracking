@@ -10,3 +10,10 @@
     align-items: end;
   }
 }
+.infinite{
+  display: grid;
+  place-items: center;
+  margin-top: 16px;
+}
+.infinite__sentinel{ height: 1px; }
+.infinite__loading{ padding: 10px 0; font-weight: 800; }

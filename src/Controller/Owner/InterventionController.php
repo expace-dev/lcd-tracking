@@ -3,14 +3,14 @@
 namespace App\Controller\Owner;
 
 use App\Entity\User;
-use App\Repository\InterventionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use App\Form\InterventionSearchType;
 use App\Model\InterventionSearch;
+use App\Repository\InterventionRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/owner', name: 'owner_')]
 final class InterventionController extends AbstractController
@@ -19,7 +19,7 @@ final class InterventionController extends AbstractController
     public function index(Request $request, InterventionRepository $repo): Response
     {
         $owner = $this->getUser();
-        if (!$owner) {
+        if (!$owner instanceof User) {
             throw $this->createAccessDeniedException();
         }
 
@@ -39,39 +39,45 @@ final class InterventionController extends AbstractController
 
         $paginator = new Paginator($qb, true);
         $total = count($paginator);
+
+        // Important: conserver l'ordre du QB, puis matérialiser les items
         $items = iterator_to_array($paginator);
+
         $hasNext = ($offset + $limit) < $total;
 
+        // conserver tous les filtres GET + incrémenter la page
         $params = $request->query->all();
         $params['page'] = $page + 1;
 
+        $nextUrl = $hasNext ? $this->generateUrl('owner_interventions_index', $params) : null;
+
         // Turbo Stream "charger plus"
-       $isTurboStream = $request->headers->get('Turbo-Stream') === 'true';
+        $isTurboStream = $request->headers->get('Turbo-Stream') === 'true';
 
-if ($isTurboStream) {
-    $response = $this->render('owner/interventions/index.stream.html.twig', [
-        'interventions' => $items,
-        'hasNext' => $hasNext,
-        'nextUrl' => $hasNext ? $this->generateUrl('owner_interventions_index', $params) : null,
-    ]);
+        if ($isTurboStream) {
+            $response = $this->render('owner/interventions/index.stream.html.twig', [
+                'interventions' => $items,
+                'hasNext' => $hasNext,
+                'nextUrl' => $nextUrl,
+            ]);
 
-    $response->headers->set('Content-Type', 'text/vnd.turbo-stream.html');
+            // assure le bon Content-Type pour Turbo
+            $response->headers->set('Content-Type', 'text/vnd.turbo-stream.html');
 
-    return $response;
-}
+            return $response;
+        }
 
         return $this->render('owner/interventions/index.html.twig', [
-    'form' => $form,
-    'interventions' => $items,
-    'hasNext' => $hasNext,
-    'nextUrl' => $hasNext ? $this->generateUrl('owner_interventions_index', $params) : null,
-]);
+            'form' => $form,
+            'interventions' => $items,
+            'hasNext' => $hasNext,
+            'nextUrl' => $nextUrl,
+        ]);
     }
+
     #[Route('/interventions/{id}', name: 'intervention_show', methods: ['GET'])]
-    public function show(
-        int $id,
-        InterventionRepository $interventionRepository,
-    ): Response {
+    public function show(int $id, InterventionRepository $interventionRepository): Response
+    {
         $owner = $this->getUser();
         if (!$owner instanceof User) {
             throw $this->createAccessDeniedException();
