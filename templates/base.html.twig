@@ -2,12 +2,34 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>LCD Tracking -
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		{# Prélaunch #}
+		<meta name="robots" content="noindex, nofollow">
+
+		<title>LCD Tracking —
 			{% block title %}Bienvenue
 			{% endblock %}
 		</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="LCD Tracking formalise les validations clés de fin de séjour et de ménage pour protéger propriétaires et intervenants, avec une trace factuelle.">
+
+		<meta name="description" content="{% block meta_description %}LCD Tracking formalise les validations clés de fin de séjour et de ménage pour protéger propriétaires et intervenants, avec une trace factuelle.{% endblock %}">
+
+		{# Canonical #}
+		<link rel="canonical" href="{{ app.request.uri }}">
+
+		{# OpenGraph #}
+		<meta property="og:site_name" content="LCD Tracking">
+		<meta property="og:title" content="LCD Tracking — {{ block('title')|striptags|trim }}">
+		<meta property="og:description" content="{{ block('meta_description')|striptags|trim }}">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="{{ app.request.uri }}">
+
+		{# À activer quand tu as une image #}
+		{# <meta property="og:image" content="{{ absolute_url(asset('images/og.jpg')) }}"> #}
+
+		{# Twitter (optionnel) #}
+		<meta name="twitter:card" content="summary_large_image"> {# Favicons (minimum) #}
+		<link rel="icon" href="{{ asset('favicon.ico') }}">
 
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -17,7 +39,6 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-
 	<body>
 		<a class="skip-link" href="#main">Aller au contenu</a>
 
